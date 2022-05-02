@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "projects": {
+    "api": "apps/api",
+    "api-interfaces": "libs/api-interfaces",
+    "wishlist-app": "apps/wishlist-app",
+    "wishlist-app-e2e": "apps/wishlist-app-e2e"
+  }
+}
