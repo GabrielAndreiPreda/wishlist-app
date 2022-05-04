@@ -1,0 +1,57 @@
+<div>
+  <mat-sidenav-container fullscreen>
+    <mat-sidenav mode="side" opened>
+      <mat-selection-list
+        #wishlistSelection
+        [multiple]="false"
+        (selectionChange)="
+          onSelection(
+            $event,
+            wishlistSelection.selectedOptions.selected[0]?.value
+          )
+        "
+      >
+        <!-- Sidenav Wishlist List -->
+        <mat-list-option
+          *ngFor="
+            let wishlist of wishlists;
+            index as i;
+            trackBy: wishlistTrackBy
+          "
+          [value]="wishlist.id"
+        >
+          <div class="wishlistButton">
+            {{ wishlist.name }} {{ selectedWishlistID }}
+            <button mat-button>
+              <mat-icon color="accent">delete</mat-icon>
+            </button>
+          </div>
+        </mat-list-option>
+
+        <!-- New Wishlist Form -->
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Add Wishlist</mat-label>
+          <input
+            matInput
+            placeholder="Ex. Birthday gifts"
+            [(ngModel)]="wishlistName"
+          />
+          <button
+            *ngIf="wishlistName"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <p>{{ wishlistSelection.selectedOptions.selected[0]?.value }}</p>
+      </mat-selection-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <wishlist-app-wishlist></wishlist-app-wishlist>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+>

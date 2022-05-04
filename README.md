@@ -9,6 +9,7 @@
   - [Technologies](#technologies)
   - [Setup](#setup)
   - [Features](#features)
+  - [Tested websites](#tested-websites)
   - [Issues](#issues)
 
 ## Overview
@@ -38,5 +39,12 @@ TO-DO
 ```
 
 ## Features
+
+## Tested websites
+- AliExpress
+- eBay
+- eMag
+- BioSano
+- Etsy
 
 ## Issues

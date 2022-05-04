@@ -3,7 +3,7 @@
   "projects": {
     "api": "apps/api",
     "api-interfaces": "libs/api-interfaces",
-    "wishlist-app": "apps/wishlist-app",
-    "wishlist-app-e2e": "apps/wishlist-app-e2e"
+    "wish-list": "apps/wish-list",
+    "wish-list-e2e": "apps/wish-list-e2e"
   }
 }
