@@ -1,6 +1,6 @@
 <div>
   <mat-sidenav-container fullscreen>
-    <mat-sidenav #Sidenav mode="side" opened class="sideNav">
+    <mat-sidenav #sidenav mode="side" opened class="sideNav">
       <mat-card class="logo">
         <p>
           Probabi-List-ic<br />
@@ -9,15 +9,23 @@
       </mat-card>
 
       <!-- New Wishlist Form -->
-      <div class="wishlistForm">
-        <mat-form-field appearance="outline" color="accent" floatLabel="always">
+      <div class="wishlistAssembly">
+        <mat-form-field
+          appearance="outline"
+          color="primary"
+          floatLabel="always"
+          hintLabel="Max 20 characters"
+          class="wishlistForm"
+        >
           <mat-label>Add Wishlist</mat-label>
           <input
             matInput
             placeholder="Ex. Birthday gifts"
             [formControl]="wishlistControl"
-            required
+            maxlength="20"
+            #input
           />
+          <mat-hint align="end">{{ input.value?.length || 0 }}/20</mat-hint>
           <button
             *ngIf="wishlistControl.value"
             matSuffix
@@ -28,6 +36,8 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
+        <mat-divider vertical class="formDivider"></mat-divider>
+
         <!-- New Wishlist Button -->
         <button
           mat-button
@@ -37,34 +47,34 @@
           <mat-icon>add</mat-icon>
         </button>
       </div>
+
       <mat-selection-list
         #wishlistSelector
         [multiple]="false"
-        (selectionChange)="onSelection($event, wishlistSelector)"
+        (selectionChange)="onSelection($event)"
       >
         <mat-divider></mat-divider>
 
         <!-- Sidenav Wishlist List -->
         <mat-list-option
-          *ngFor="
-            let wishlist of wishlists;
-            index as i;
-            trackBy: wishlistTrackBy
-          "
-          [value]="wishlist.id"
+          *ngFor="let wishlist of wishlists; index as i"
+          [value]="i"
         >
           <div class="wishlistName">{{ wishlist.name }}</div>
         </mat-list-option>
 
-        <p>{{ selectedWishlistID }}</p>
+        <p>{{ selectedWishlist?.id }}</p>
       </mat-selection-list>
     </mat-sidenav>
 
     <!-- Wishlist Content -->
     <mat-sidenav-content>
+      <wishlist-app-toolbar
+        [wishlist]="selectedWishlist"
+        [parentSidenav]="sidenav"
+      ></wishlist-app-toolbar>
       <wishlist-app-wishlist
-        [parentSidenav]="Sidenav"
-        [wishlistID]="selectedWishlistID"
+        [wishlist]="selectedWishlist"
       ></wishlist-app-wishlist>
     </mat-sidenav-content>
   </mat-sidenav-container>

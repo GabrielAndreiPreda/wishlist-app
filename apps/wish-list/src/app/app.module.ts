@@ -9,6 +9,8 @@ import { MainUIComponent } from './main-ui/main-ui.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MainUIModule } from './main-ui/main-ui.module';
+import { ToolbarModule } from './toolbar/toolbar.module';
+import { MatIcon } from '@angular/material/icon';
 
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent],

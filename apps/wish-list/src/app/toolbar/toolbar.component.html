@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" class="toolbar">
+  <div class="toolbarLeftItems">
+    <button
+      mat-button
+      (click)="toggleSidenav()"
+      color="accent"
+      class="topButton"
+    >
+      <mat-icon>list</mat-icon>
+    </button>
+
+    <h1>{{ wishlist ? wishlist.name : 'Empty around here' }}</h1>
+  </div>
+  <div>
+    <mat-icon>edit</mat-icon>
+  </div>
+</mat-toolbar>

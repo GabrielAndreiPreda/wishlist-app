@@ -8,23 +8,32 @@ $sideNavRightPadding : 2%;
 .sideNav{
     display: flex;
     width: 20%;
+    min-width: 350px;
+    max-width: 70%;
     padding: 1%;
     justify-content: space-around;
     
 }
 
 .wishlistForm{
+    width: 75%;
+    
+
+}
+.wishlistAssembly{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-right: $sideNavRightPadding;
-        button mat-icon{
-            vertical-align: top;
-        }
+        
 }
 
 .wishlistName{
     overflow: auto;
+}
+
+.wishlistInput{
+    width: 20vw;
 }
 
 .logo{
@@ -35,4 +44,8 @@ $sideNavRightPadding : 2%;
         line-height:100%;
         font-size: xx-large;
     }
+}
+
+.formDivider{
+    height: 10vh;
 }

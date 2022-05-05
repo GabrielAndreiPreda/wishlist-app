@@ -1,6 +1,9 @@
-<button mat-button (click)="toggleSidenav()">
-  <mat-icon color="accent">list</mat-icon>
-</button>
-<button mat-button>
-  <mat-icon color="accent">delete</mat-icon>
-</button>
+
+<mat-card>
+  <mat-card-title>{{
+    wishlist ? wishlist.name : 'Empty around here'
+  }}</mat-card-title>
+  <mat-card-content>{{
+    wishlist ? wishlist.description : 'Choose or create a wishlist to begin'
+  }}</mat-card-content>
+</mat-card>

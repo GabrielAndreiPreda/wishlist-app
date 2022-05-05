@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
-import { IItem } from '@wishlist-app/api-interfaces';
+import { IItem, IList } from '@wishlist-app/api-interfaces';
 import { APIService } from '../api.service';
 import { EventService } from '../event.service';
 
@@ -10,8 +10,8 @@ import { EventService } from '../event.service';
   styleUrls: ['./wishlist.component.scss'],
 })
 export class WishlistComponent implements OnInit {
-  @Input() wishlistID: number | null = null;
-  @Input() parentSidenav: any = null;
+  @Input() wishlist: IList | null = null;
+  
 
   items: IItem[] = [];
 
@@ -28,9 +28,7 @@ export class WishlistComponent implements OnInit {
     });
   }
 
-  toggleSidenav() {
-    this.parentSidenav.toggle();
-  }
+  
   async changeWishlist(id: number) {
     this.items = await this.apiService.getItemsFromWishlist(id);
   }

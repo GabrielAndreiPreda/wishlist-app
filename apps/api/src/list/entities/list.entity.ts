@@ -15,6 +15,9 @@ export class List implements IList {
   @Column()
   name: string;
 
+  @Column({ default: 'Tap the edit button to add a description' })
+  description: string;
+
   @CreateDateColumn()
   addedOn: Date;
 }

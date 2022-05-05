@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ToolbarModule } from '../toolbar/toolbar.module';
 
 @NgModule({
   declarations: [WishlistComponent, MainUIComponent],
@@ -29,6 +31,7 @@ import { MatCardModule } from '@angular/material/card';
     ReactiveFormsModule,
     MatDividerModule,
     MatCardModule,
+    ToolbarModule,
   ],
   exports: [MainUIComponent],
 })
