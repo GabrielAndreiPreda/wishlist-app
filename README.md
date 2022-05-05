@@ -1,9 +1,9 @@
 
 
-# (Listly) - the local MySQL wishlist
+# Probabi-List-ic Purchases - the local MySQL wishlist
 
 ## Table of contents
-- [(Listly) - the local MySQL wishlist](#listly---the-local-mysql-wishlist)
+- [Probabi-List-ic Purchases - the local MySQL wishlist](#probabi-list-ic-purchases---the-local-mysql-wishlist)
   - [Table of contents](#table-of-contents)
   - [Overview](#overview)
   - [Technologies](#technologies)
@@ -13,7 +13,7 @@
   - [Issues](#issues)
 
 ## Overview
-(Listly) facilitates the organisation of your favorite past-time — shopping for cheapies made out of Chineseum
+Probabi-List-ic Purchases facilitates the organisation of your favorite past-time — shopping for cheapies made out of Chineseum
 
 ## Technologies
 The app is a single-page application that uses Angular for the front-end, NestJS for the back-end, and MySQL for the local database server
@@ -28,15 +28,13 @@ $ git clone (TO-DO)
 
 # Install dependencies
 $ npm install
-
-# Run the app
-$ npm start
 ```
 
-It is also recommended that <a url="https://nx.dev/">nx</a> is used to run the application using:
+It is also recommended that <a url="https://nx.dev/">nx</a> is used to run the application using the following command that starts both the front-end and back-end at the same time
+```bash
+nx run wish-list:serve-with-services
 ```
-TO-DO 
-```
+Otherwise
 
 ## Features
 
@@ -48,3 +46,5 @@ TO-DO
 - Etsy
 
 ## Issues
+
+Back-end error handling incomplete

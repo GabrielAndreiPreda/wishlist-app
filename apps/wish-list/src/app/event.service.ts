@@ -6,9 +6,9 @@ import { Subject } from 'rxjs';
 })
 export class EventService {
   constructor() {}
-  private _subject = new Subject<any>();
+  private _subject = new Subject<unknown>();
 
-  newEvent(event: Event) {
+  newEvent(event: unknown) {
     this._subject.next(event);
   }
 

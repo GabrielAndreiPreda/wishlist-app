@@ -11,6 +11,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [WishlistComponent, MainUIComponent],
@@ -23,6 +26,9 @@ import { MatListModule } from '@angular/material/list';
     MatMenuModule,
     MatSidenavModule,
     MatListModule,
+    ReactiveFormsModule,
+    MatDividerModule,
+    MatCardModule,
   ],
   exports: [MainUIComponent],
 })

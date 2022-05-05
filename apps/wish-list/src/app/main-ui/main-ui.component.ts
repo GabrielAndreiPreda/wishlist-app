@@ -1,10 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { IList } from '@wishlist-app/api-interfaces';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormControl, Validators } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { APIService } from '../api.service';
 import { EventService } from '../event.service';
+import { MatSelectionList } from '@angular/material/list';
 
 @Component({
   selector: 'wishlist-app-main-ui',
@@ -12,9 +19,14 @@ import { EventService } from '../event.service';
   styleUrls: ['./main-ui.component.scss'],
 })
 export class MainUIComponent implements OnInit {
-  wishlistName = '';
   wishlists: IList[] = [];
   selectedWishlistID: number | null = null;
+  wishlistControl = new FormControl('', [Validators.required]);
+
+  private get newWishlistName(): string {
+    // property
+    return this.wishlistControl.value;
+  }
 
   constructor(
     private apiService: APIService,
@@ -27,15 +39,24 @@ export class MainUIComponent implements OnInit {
 
   async loadWishlists() {
     this.wishlists = await this.apiService.getAllWishlists();
-    console.log(this.wishlists);
+  }
+
+  async createWishlist() {
+    await this.apiService.createWishlist(this.newWishlistName);
+    await this.loadWishlists();
   }
 
   wishlistTrackBy(index: number, wishlist: IList) {
     return wishlist.id;
   }
 
-  onSelection(event: any, value: number) {
-    this.selectedWishlistID = value;
+  onSelection(event: unknown, wishlistSelector: any) {
+    this.selectedWishlistID =
+      wishlistSelector.selectedOptions.selected[0]?.value;
     this.eventService.newEvent(event);
+  }
+
+  resetWishlistForm() {
+    this.wishlistControl.setValue('');
   }
 }

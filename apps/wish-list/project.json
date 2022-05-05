@@ -74,6 +74,20 @@
         "proxyConfig": "apps/wish-list/proxy.conf.json"
       }
     },
+    "serve-with-services": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx serve api"
+          },
+          {
+            "command": "nx serve wish-list --open"
+          }
+        ],
+        "parallel": true
+      }
+    },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {

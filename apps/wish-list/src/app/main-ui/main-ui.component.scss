@@ -1,9 +1,38 @@
-.wishlistButton{
+
+$sideNavRightPadding : 2%;
+@font-face {
+    font-family: logoFont;
+    src: url('../../assets/fonts/Spring\ in\ May.ttf');
+  }
+
+.sideNav{
+    display: flex;
+    width: 20%;
+    padding: 1%;
+    justify-content: space-around;
+    
+}
+
+.wishlistForm{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    button{
-        min-width: 1%;
-        padding: 0%;
+    padding-right: $sideNavRightPadding;
+        button mat-icon{
+            vertical-align: top;
+        }
+}
+
+.wishlistName{
+    overflow: auto;
+}
+
+.logo{
+    margin-bottom: 5%;
+    text-align: center;
+    p{
+        font-family: logoFont;
+        line-height:100%;
+        font-size: xx-large;
     }
 }

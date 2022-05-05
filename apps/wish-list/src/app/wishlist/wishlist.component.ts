@@ -11,6 +11,7 @@ import { EventService } from '../event.service';
 })
 export class WishlistComponent implements OnInit {
   @Input() wishlistID: number | null = null;
+  @Input() parentSidenav: any = null;
 
   items: IItem[] = [];
 
@@ -26,7 +27,11 @@ export class WishlistComponent implements OnInit {
       }
     });
   }
+
+  toggleSidenav() {
+    this.parentSidenav.toggle();
+  }
   async changeWishlist(id: number) {
-    console.log(await this.apiService.getItemsFromWishlist(id.toString()));
+    this.items = await this.apiService.getItemsFromWishlist(id);
   }
 }

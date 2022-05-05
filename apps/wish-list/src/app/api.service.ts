@@ -9,8 +9,9 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class APIService {
-  private wishlistsURL = 'api/wishlist';
-  private itemsURL = 'api/wishlist/items';
+  private wishlistsURL = 'api/wishlists';
+  private getItemsURL = 'api/wishlists/items';
+  private itemURL = 'api/items';
 
   constructor(private http: HttpClient) {}
 
@@ -18,13 +19,20 @@ export class APIService {
     return await lastValueFrom(this.http.get<IList[]>(this.wishlistsURL));
   }
 
-  async removeWishlist(id: string) {
-    return await lastValueFrom(this.http.delete(this.wishlistsURL + '/' + id));
+  async removeWishlist(id: number) {
+    return await lastValueFrom(
+      this.http.delete(this.wishlistsURL + '/' + id.toString())
+    );
+  }
+  async createWishlist(wishlistName: string) {
+    return await lastValueFrom(
+      this.http.post<IList>(this.wishlistsURL, { name: wishlistName })
+    );
   }
 
-  async getItemsFromWishlist(id: string) {
+  async getItemsFromWishlist(id: number) {
     return await lastValueFrom(
-      this.http.get<IItem[]>(this.itemsURL + '/' + id)
+      this.http.get<IItem[]>(this.getItemsURL + '/' + id.toString())
     );
   }
 }
