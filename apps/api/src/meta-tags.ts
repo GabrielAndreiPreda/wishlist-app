@@ -7,20 +7,14 @@ export class MetaTags {
   title: string;
   description: string;
   image: string;
-  URL: string;
 
   importTagsFromDOM(dom: JSDOM) {
     const head = dom.window.document.head;
     for (const typeofTag of TYPESOFTAGS) {
-      const { titleElement, descriptionElement, imageElement, URLElement } =
+      const { titleElement, descriptionElement, imageElement } =
         this.getTagElementsFromHead(head, typeofTag);
 
-      this.populateWithContent(
-        titleElement,
-        descriptionElement,
-        imageElement,
-        URLElement
-      );
+      this.populateWithContent(titleElement, descriptionElement, imageElement);
 
       if (this.tagsAreFound()) {
         return true;
@@ -32,13 +26,11 @@ export class MetaTags {
   private populateWithContent(
     titleElement: Element,
     descriptionElement: Element,
-    imageElement: Element,
-    URLElement: Element
+    imageElement: Element
   ) {
     this.title = this.getContentFromElement(titleElement);
     this.description = this.getContentFromElement(descriptionElement);
     this.image = this.getContentFromElement(imageElement);
-    this.URL = this.getContentFromElement(URLElement);
   }
 
   //Should've just made an tagElements array instead for simplicity
@@ -53,10 +45,7 @@ export class MetaTags {
       '[' + typeofTag + "image'" + '][content]'
     );
 
-    const URLElement = head.querySelector(
-      '[' + typeofTag + "url'" + '][content]'
-    );
-    return { titleElement, descriptionElement, imageElement, URLElement };
+    return { titleElement, descriptionElement, imageElement };
   }
 
   private getContentFromElement(element: Element) {
@@ -67,8 +56,7 @@ export class MetaTags {
     if (
       this.title === null &&
       this.description === null &&
-      this.image === null &&
-      this.URL === null
+      this.image === null
     ) {
       return false;
     }

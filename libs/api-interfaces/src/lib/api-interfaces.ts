@@ -27,5 +27,12 @@ export interface IItem {
 
   addedOn: Date;
 
+  URL: string;
+
   image: string;
+}
+
+export interface IListWithURLs {
+  wishlist: IList;
+  itemsURLs: string[];
 }

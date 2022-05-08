@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatSelectionListChange } from '@angular/material/list';
 import { IItem, IList } from '@wishlist-app/api-interfaces';
 import { APIService } from '../api.service';
@@ -11,9 +12,21 @@ import { EventService } from '../event.service';
 })
 export class WishlistComponent implements OnInit {
   @Input() wishlist: IList | null = null;
-  
-
+  @Output() reloadWishlistsEvent = new EventEmitter<string>();
+  isEditing = false;
+  maxLength = 255;
   items: IItem[] = [];
+
+  descriptionControl = new FormControl('', [
+    Validators.maxLength(this.maxLength),
+  ]);
+  itemControl = new FormControl('', [
+    Validators.pattern('^.*[a-zA-Z]+(.|\\s)*$'),
+  ]); // Seems like url regex validation doesn't want to work
+
+  private get newWishlistDescription() {
+    return this.descriptionControl.value;
+  }
 
   constructor(
     private apiService: APIService,
@@ -21,15 +34,56 @@ export class WishlistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.eventService.$events.forEach((event) => {
-      if (event instanceof MatSelectionListChange) {
-        this.changeWishlist(event.options[0].value);
-      }
-    });
+    // this.eventService.$events.forEach((event) => {
+    //   if (event instanceof MatSelectionListChange) {
+    //     this.changeWishlist(event.options[0].value);
+    //   }
+    // });
   }
 
-  
+  ngOnChanges(): void {
+    if (this.wishlist) {
+      this.changeWishlist(this.wishlist.id);
+      this.descriptionControl.setValue(this.wishlist?.description);
+      this.populateItems();
+    }
+  }
+
   async changeWishlist(id: number) {
     this.items = await this.apiService.getItemsFromWishlist(id);
+  }
+
+  toggleEditing() {
+    this.isEditing = !this.isEditing;
+    console.log(this.itemControl);
+  }
+
+  async saveNewWishlistDescription() {
+    if (this.wishlist) {
+      this.apiService
+        .updateWishlist(this.wishlist.id, {
+          description: this.newWishlistDescription,
+        })
+        .then(() => {
+          this.reloadWishlistsEvent.emit();
+          this.toggleEditing();
+        });
+    }
+  }
+
+  async populateItems() {
+    if (this.wishlist) {
+      this.items = await this.apiService.getItemsFromWishlist(this.wishlist.id);
+    }
+  }
+  async addItem() {
+    if (this.wishlist) {
+      return await this.apiService
+        .addItem(this.wishlist.id, this.itemControl.value)
+        .then(() => {
+          this.populateItems();
+        });
+    }
+    return 'error';
   }
 }

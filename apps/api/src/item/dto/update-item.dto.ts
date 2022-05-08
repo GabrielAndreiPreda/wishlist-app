@@ -3,8 +3,4 @@ import { Item } from '../entities/item.entity';
 import { CreateItemDto } from './create-item.dto';
 import { ItemDto } from './item.dto';
 
-export class UpdateItemDto extends PickType(ItemDto, [
-  'wishListID',
-  'quantity',
-  'isBought',
-] as const) {}
+export class UpdateItemDto extends PartialType(ItemDto) {}

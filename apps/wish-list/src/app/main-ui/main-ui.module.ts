@@ -16,9 +16,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ToolbarModule } from '../toolbar/toolbar.module';
+import { EditingFormComponent } from '../editing-form/editing-form.component';
+import { EditingFormModule } from '../editing-form/editing-form.module';
+import { WishlistModule } from '../wishlist/wishlist.module';
 
 @NgModule({
-  declarations: [WishlistComponent, MainUIComponent],
+  declarations: [MainUIComponent],
   imports: [
     CommonModule,
     MatInputModule,
@@ -32,6 +35,8 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
     MatDividerModule,
     MatCardModule,
     ToolbarModule,
+    EditingFormModule,
+    WishlistModule,
   ],
   exports: [MainUIComponent],
 })

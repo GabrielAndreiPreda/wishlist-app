@@ -1,9 +1,80 @@
-
 <mat-card>
-  <mat-card-title>{{
-    wishlist ? wishlist.name : 'Empty around here'
-  }}</mat-card-title>
-  <mat-card-content>{{
-    wishlist ? wishlist.description : 'Choose or create a wishlist to begin'
-  }}</mat-card-content>
+  <mat-card-content [ngSwitch]="isEditing" class="descriptionSection">
+    <!-- Description text -->
+    <p *ngSwitchDefault class="description">
+      {{
+        wishlist ? wishlist.description : 'Choose or create a wishlist to begin'
+      }}
+    </p>
+
+    <!-- Description Edit Form -->
+    <mat-form-field
+      *ngSwitchCase="true"
+      color="primary"
+      class="descriptionForm"
+    >
+      <mat-label>Wishlist description</mat-label>
+      <textarea
+        matInput
+        placeholder="Ex. Propane and Propane Accessories"
+        [formControl]="descriptionControl"
+        #descriptionInput
+      ></textarea>
+      <mat-hint align="end">
+        <p>{{ descriptionInput.value?.length || 0 }}/{{ maxLength }}</p>
+      </mat-hint>
+    </mat-form-field>
+
+    <!-- Buttons -->
+    <div>
+      <button
+        mat-button
+        (click)="saveNewWishlistDescription()"
+        color="primary"
+        class="button"
+        *ngIf="isEditing"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+      <button
+        mat-button
+        (click)="toggleEditing()"
+        color="primary"
+        class="button"
+        [ngSwitch]="isEditing"
+      >
+        <mat-icon *ngSwitchDefault>drawing</mat-icon>
+        <mat-icon *ngSwitchCase="true">cancel</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+  <mat-divider inset></mat-divider>
+
+  <!-- Add Item Form -->
+  <mat-card-actions class="newItemSection">
+    <p>Add a new item:</p>
+    <mat-form-field color="primary" class="itemForm">
+      <mat-label> Item URL</mat-label>
+      <input
+        matInput
+        placeholder="https://www.emag.ro/butelie-gaz-gpl-26-litri-propan-butan-butelie-camping-compatibila-cu-aragaz-filet-1-2-metal-dalban-121/pd/D9DS2PMBM/"
+        [formControl]="itemControl"
+        #itemInput
+      />
+    </mat-form-field>
+    <button
+      mat-button
+      (click)="addItem()"
+      color="primary"
+      class="button"
+      [disabled]="itemControl.status === 'INVALID'"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card-actions>
 </mat-card>
+
+<!-- Items Grid -->
+<ng-container *ngFor="let item of items">
+  <wishlist-app-item [item]="item"> </wishlist-app-item>
+</ng-container>

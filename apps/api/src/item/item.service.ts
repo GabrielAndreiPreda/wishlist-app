@@ -36,6 +36,7 @@ export class ItemService {
     let newItem = new ItemDto();
     newItem = metaTags as unknown as ItemDto;
     newItem.wishListID = createItemDto.wishListID;
+    newItem.URL = createItemDto.URL;
     await this.saveURLImageAsB64(metaTags, newItem);
 
     return this.itemRepository.save(newItem);

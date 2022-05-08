@@ -51,7 +51,7 @@
       <mat-selection-list
         #wishlistSelector
         [multiple]="false"
-        (selectionChange)="onSelection($event)"
+        (selectionChange)="onSelection()"
       >
         <mat-divider></mat-divider>
 
@@ -62,19 +62,21 @@
         >
           <div class="wishlistName">{{ wishlist.name }}</div>
         </mat-list-option>
-
-        <p>{{ selectedWishlist?.id }}</p>
       </mat-selection-list>
     </mat-sidenav>
 
-    <!-- Wishlist Content -->
     <mat-sidenav-content>
+      <!-- Toolbar -->
       <wishlist-app-toolbar
         [wishlist]="selectedWishlist"
         [parentSidenav]="sidenav"
+        (reloadWishlistsEvent)="reloadWishlists()"
       ></wishlist-app-toolbar>
+
+      <!-- Wishlist Content -->
       <wishlist-app-wishlist
         [wishlist]="selectedWishlist"
+        (reloadWishlistsEvent)="reloadWishlists()"
       ></wishlist-app-wishlist>
     </mat-sidenav-content>
   </mat-sidenav-container>

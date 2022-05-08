@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Share your wishlist</h1>
+<div mat-dialog-content>
+  <p>Send this code to a friend! Import it via the toolbar import button</p>
+  <mat-form-field class="code" appearance="fill">
+    <textarea matInput>{{ code }}</textarea>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="copyText()" cdkFocusInitial>Copy</button>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

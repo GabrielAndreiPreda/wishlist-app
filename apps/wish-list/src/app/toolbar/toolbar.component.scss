@@ -3,13 +3,18 @@
     align-items: center;
     justify-content: space-between;
     text-align: center;
+    height: 8vh;
+    div button mat-icon{
+        line-height: 0.8em;
+    }
+
 }
 
 
 
 .topButton{
     display: flex;
-    font-size: xx-large;
+    font-size: xx-large ;
     align-items: center;
     justify-content: center;
 }
@@ -21,4 +26,10 @@
     text-align: center;
     align-items: center;
     justify-content: space-between;
+}
+
+.rightButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

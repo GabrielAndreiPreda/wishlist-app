@@ -37,6 +37,10 @@ export class ListController {
   async findItems(@Param('id') id: string) {
     return this.listService.findItems(+id);
   }
+  @Get('export/:id')
+  async getExportCode(@Param('id') id: string) {
+    return this.listService.getExportCode(+id);
+  }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateListDto: UpdateListDto) {

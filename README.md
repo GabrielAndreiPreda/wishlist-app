@@ -10,7 +10,7 @@
   - [Setup](#setup)
   - [Features](#features)
   - [Tested websites](#tested-websites)
-  - [Issues](#issues)
+  - [Short-comings](#short-comings)
 
 ## Overview
 Probabi-List-ic Purchases facilitates the organisation of your favorite past-time — shopping for cheapies made out of Chineseum
@@ -20,7 +20,7 @@ The app is a single-page application that uses Angular for the front-end, NestJS
 
 ## Setup
 
-To clone and run this application, you'll need Git and Node.js installed on your computer. From the command line:
+To clone and run this application, you'll need Git and Node.js installed on your computer (or just download it from the repo). From the command line:
 
 ```bash
 # Clone this repository
@@ -30,11 +30,15 @@ $ git clone (TO-DO)
 $ npm install
 ```
 
-It is also recommended that <a url="https://nx.dev/">nx</a> is used to run the application using the following command that starts both the front-end and back-end at the same time
+<a url="https://nx.dev/">Nx</a> can be used to run the application with the following command that starts both the front-end and back-end at the same time
 ```bash
 nx run wish-list:serve-with-services
 ```
-Otherwise
+For debugging the front-end and back-end can be served separately
+```bash
+nx wish-list:serve
+nx api:serve
+```
 
 ## Features
 
@@ -45,6 +49,10 @@ Otherwise
 - BioSano
 - Etsy
 
-## Issues
+## Short-comings
 
-Back-end error handling incomplete
+- Back-end error handling incomplete
+- Front-end error handling incomplete
+- No Snackbar message display
+- No Search bar
+- No Routing/resolvers 

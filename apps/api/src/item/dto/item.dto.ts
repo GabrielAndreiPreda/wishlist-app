@@ -19,5 +19,7 @@ export class ItemDto {
 
   isBought: boolean;
 
+  URL: string;
+
   image: string;
 }

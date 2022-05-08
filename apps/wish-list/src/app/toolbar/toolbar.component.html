@@ -4,14 +4,69 @@
       mat-button
       (click)="toggleSidenav()"
       color="accent"
-      class="topButton"
-    >
-      <mat-icon>list</mat-icon>
+      class="topButton">
+      <mat-icon>menu</mat-icon>
     </button>
+    <div [ngSwitch]="isEditing">
+      <h1 *ngSwitchDefault>
+        {{ wishlist ? wishlist.name : 'Empty around here' }}
+      </h1>
 
-    <h1>{{ wishlist ? wishlist.name : 'Empty around here' }}</h1>
+      <!-- Wishlist Name Editor -->
+      <wishlist-app-editing-form
+        *ngSwitchCase="true"
+        [defaultValue]="wishlist!.name"
+        [maxLength]="20"
+        label="Wishlist name"
+        placeholder="Ex. Cool cat toys"
+        color="accent"
+        (formChangeEvent)="getNewWishlistName($event)"
+        (formEnterEvent)="saveNewWishlistName()"></wishlist-app-editing-form>
+    </div>
   </div>
   <div>
-    <mat-icon>edit</mat-icon>
+    <div class="rightButtons" *ngIf="wishlist">
+      <!-- Save button -->
+      <button
+        mat-button
+        (click)="saveNewWishlistName()"
+        color="accent"
+        class="topButton"
+        *ngIf="isEditing">
+        <mat-icon>save</mat-icon>
+      </button>
+      <!-- Edit/Cancel button -->
+      <button
+        mat-button
+        (click)="toggleEditing()"
+        color="accent"
+        class="topButton"
+        [ngSwitch]="isEditing">
+        <mat-icon *ngSwitchDefault>edit</mat-icon>
+        <mat-icon *ngSwitchCase="true">cancel</mat-icon>
+      </button>
+      <!-- Share Button -->
+      <button
+        mat-button
+        color="accent"
+        class="topButton"
+        *ngIf="!isEditing"
+        (click)="openDialog()">
+        <mat-icon>send</mat-icon>
+      </button>
+      <!-- Import Button -->
+      <button mat-button color="accent" class="topButton" *ngIf="!isEditing">
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+      <!-- Delete button -->
+      <button
+        mat-button
+        (click)="deleteWishlist()"
+        color="accent"
+        class="topButton"
+        *ngIf="!isEditing">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
 </mat-toolbar>

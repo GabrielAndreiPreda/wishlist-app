@@ -1,0 +1,33 @@
+<mat-form-field
+  appearance="fill"
+  [color]="color"
+  floatLabel="always"
+  [hintLabel]="hintLabel"
+  class="wishlistForm"
+>
+  <mat-label *ngIf="label">{{ label }}</mat-label>
+  <input
+    matInput
+    [placeholder]="placeholder"
+    [formControl]="formControl"
+    [maxlength]="maxLength"
+    type="text"
+    #input
+    (keyup)="sendFormValue()"
+    (keyup.enter)="saveFormValue()"
+  />
+
+  <mat-hint *ngIf="showHint" align="end"
+    ><p>{{ input.value?.length || 0 }}/{{ maxLength }}</p></mat-hint
+  >
+
+  <button
+    *ngIf="formControl.value"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="resetWishlistForm()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>

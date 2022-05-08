@@ -1,3 +1,27 @@
-.topButton{
+.button{
     font-size: xx-large
+}
+.descriptionSection{
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.description{
+    display: flex;
+    text-align: center;
+    font-size: large;
+}
+.descriptionForm{
+    width: 50%;
+}
+
+.newItemSection{
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+.itemForm{
+    width: 30%;
+    margin-left: 1%;
 }

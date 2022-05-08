@@ -30,6 +30,9 @@ export class Item implements IItem {
   @CreateDateColumn()
   addedOn: Date;
 
+  @Column({ type: 'text' })
+  URL: string;
+
   @Column({ type: 'longtext' })
   image: string;
 }

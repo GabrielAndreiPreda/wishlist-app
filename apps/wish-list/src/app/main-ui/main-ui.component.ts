@@ -38,6 +38,10 @@ export class MainUIComponent implements OnInit {
     return this.wishlistControl.value;
   }
 
+  private get selectedWishlistIndex() {
+    return this.wishlistSelector.selectedOptions.selected[0]?.value;
+  }
+
   constructor(
     private apiService: APIService,
     private eventService: EventService
@@ -57,6 +61,14 @@ export class MainUIComponent implements OnInit {
     this.wishlists = await this.apiService.getAllWishlists();
   }
 
+  async reloadWishlists() {
+    this.wishlists = await this.apiService.getAllWishlists();
+
+    this.selectedWishlistIndex
+      ? this.onSelection()
+      : this.selectFirstWishlist();
+  }
+
   async createWishlist() {
     await this.apiService.createWishlist(this.newWishlistName);
     window.location.reload();
@@ -66,10 +78,8 @@ export class MainUIComponent implements OnInit {
     return wishlist.id;
   } */
 
-  onSelection(event: MatSelectionListChange): void {
-    this.selectedWishlist =
-      this.wishlists[this.wishlistSelector.selectedOptions.selected[0]?.value];
-    this.eventService.newEvent(event);
+  onSelection(): void {
+    this.selectedWishlist = this.wishlists[this.selectedWishlistIndex];
   }
 
   resetWishlistForm(): void {
