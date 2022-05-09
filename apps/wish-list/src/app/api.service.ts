@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IList, IListWithURLs } from '@wishlist-app/api-interfaces';
+import { IList, IListExport } from '@wishlist-app/api-interfaces';
 import { IItem } from '@wishlist-app/api-interfaces';
 import { catchError, tap } from 'rxjs/operators';
 import { lastValueFrom } from 'rxjs';
+import { Compressed } from 'compress-json';
 
 @Injectable({
   providedIn: 'root',
@@ -44,11 +45,14 @@ export class APIService {
 
   async getExportCode(id: number) {
     return await lastValueFrom(
-      this.http.get(this.wishlistsURL + '/export/' + id.toString(), {
-        responseType: 'text',
-      })
+      this.http.get<Compressed>(this.wishlistsURL + '/export/' + id.toString())
     );
   }
+  // async importFromCode(code: Compressed) {
+  //   return await lastValueFrom(
+  //     this.http.post<Compressed>(this.wishlistsURL + '/import/', { code })
+  //   );
+  // }
 
   async addItem(wishListID: number, URL: string) {
     return await lastValueFrom(

@@ -7,7 +7,7 @@ import { ItemModule } from '../item/item.module';
 import { Item } from '../item/entities/item.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([List, Item])],
+  imports: [TypeOrmModule.forFeature([List, Item]), ItemModule],
   controllers: [ListController],
   providers: [ListService],
 })

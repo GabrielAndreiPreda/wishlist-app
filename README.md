@@ -10,7 +10,7 @@
   - [Setup](#setup)
   - [Features](#features)
   - [Tested websites](#tested-websites)
-  - [Short-comings](#short-comings)
+  - [To-do](#to-do)
 
 ## Overview
 Probabi-List-ic Purchases facilitates the organisation of your favorite past-time — shopping for cheapies made out of Chineseum
@@ -41,6 +41,7 @@ nx api:serve
 ```
 
 ## Features
+Backup/share wishlist data
 
 ## Tested websites
 - AliExpress
@@ -49,10 +50,11 @@ nx api:serve
 - BioSano
 - Etsy
 
-## Short-comings
+## To-do
 
 - Back-end error handling incomplete
 - Front-end error handling incomplete
-- No Snackbar message display
-- No Search bar
-- No Routing/resolvers 
+- Snackbar message display
+- Search bar
+- Routing/resolvers 
+- Add users & make wishlist sharing between users

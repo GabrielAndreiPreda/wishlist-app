@@ -32,7 +32,7 @@ export interface IItem {
   image: string;
 }
 
-export interface IListWithURLs {
-  wishlist: IList;
+export interface IListExport {
+  wishlistName: string;
   itemsURLs: string[];
 }

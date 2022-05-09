@@ -4,8 +4,8 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { IItem, IList, IListWithURLs } from '@wishlist-app/api-interfaces';
-
+import { IItem, IList, IListExport } from '@wishlist-app/api-interfaces';
+import { Compressed } from 'compress-json';
 import { APIService } from '../api.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { APIService } from '../api.service';
   styleUrls: ['./share-dialog.component.scss'],
 })
 export class ShareDialogComponent {
-  code!: string;
+  code!: Compressed;
   constructor(
     private apiService: APIService,
     public dialogRef: MatDialogRef<ShareDialogComponent>,
@@ -30,6 +30,6 @@ export class ShareDialogComponent {
   }
 
   copyText() {
-    navigator.clipboard.writeText(this.code);
+    navigator.clipboard.writeText(JSON.stringify(this.code));
   }
 }

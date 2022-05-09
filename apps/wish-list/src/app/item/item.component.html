@@ -2,7 +2,10 @@
   <mat-card-title-group>
     <mat-card-title>{{ item.title }}</mat-card-title>
 
-    <img mat-card-md-image [src]="'data:image/png;base64,' + item.image" />
+    <img
+      mat-card-md-image
+      *ngIf="item.image"
+      [src]="'data:image/png;base64,' + item.image" />
   </mat-card-title-group>
   <mat-card-content>
     <p>{{ item.description }}</p>

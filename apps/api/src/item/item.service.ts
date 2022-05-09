@@ -71,7 +71,7 @@ export class ItemService {
         newItem.image = response; // "cGF0aC90by9maWxlLmpwZw=="
       })
       .catch((error) => {
-        newItem.image = metaTags.image;
+        newItem.image = metaTags.image ? metaTags.image : '';
         console.log(error);
       });
   }

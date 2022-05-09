@@ -17,9 +17,10 @@ import { ShareDialogComponent } from './share-dialog/share-dialog.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MainUIResolver } from './mainUI.resolver';
 import { APIService } from './api.service';
+import { ImportDialogComponent } from './import-dialog/import-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent],
+  declarations: [AppComponent, NxWelcomeComponent, ImportDialogComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IListWithURLs } from '@wishlist-app/api-interfaces';
+import { IListExport } from '@wishlist-app/api-interfaces';
 import { Repository } from 'typeorm';
 import { Item } from '../item/entities/item.entity';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { List } from './entities/list.entity';
 import { OrbitEncoder } from 'orbit-encoder/lib/OrbitEncoder';
+import { ItemService } from '../item/item.service';
+import { compress, Compressed, decompress } from 'compress-json';
 
 @Injectable()
 export class ListService {
@@ -15,7 +17,8 @@ export class ListService {
     private listRepository: Repository<List>,
 
     @InjectRepository(Item)
-    private itemRepository: Repository<Item>
+    private itemRepository: Repository<Item>,
+    private itemService: ItemService
   ) {}
   create(createListDto: CreateListDto) {
     const newList = this.listRepository.create(createListDto);
@@ -35,16 +38,26 @@ export class ListService {
   }
 
   async getExportCode(id: number) {
-    const listWithItemURLs = await this.getListByIdWithURLs(id);
-    return OrbitEncoder.encodeWithURIsafe(listWithItemURLs);
+    return JSON.stringify(compress(await this.getListExport(id)));
   }
-  private async getListByIdWithURLs(id: number) {
-    const listWithItemURLs: IListWithURLs = { wishlist: null, itemsURLs: null };
-    listWithItemURLs.wishlist = await this.findOne(id);
-    listWithItemURLs.itemsURLs = await this.findItemsURLs(
-      listWithItemURLs.wishlist.id
-    );
-    return listWithItemURLs;
+  private async getListExport(id: number) {
+    const listExport: IListExport = {
+      wishlistName: null,
+      itemsURLs: null,
+    };
+    listExport.wishlistName = (await this.findOne(id)).name;
+    listExport.itemsURLs = await this.findItemsURLs(id);
+    return listExport;
+  }
+
+  async importFromCode(code: Compressed) {
+    console.log(code);
+    const listExport: IListExport = decompress(code);
+    console.log(listExport);
+    const newList = await this.create({ name: listExport.wishlistName });
+    listExport.itemsURLs.forEach((URL) => {
+      this.itemService.create({ URL, wishListID: newList.id });
+    });
   }
 
   async findItems(id: number) {
