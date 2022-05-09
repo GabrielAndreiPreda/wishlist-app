@@ -3,7 +3,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  ManyToOne,
 } from 'typeorm';
 import { IItem } from '@wishlist-app/api-interfaces';
 

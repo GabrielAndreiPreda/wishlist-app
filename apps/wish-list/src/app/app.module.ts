@@ -20,7 +20,7 @@ import { APIService } from './api.service';
 import { ImportDialogComponent } from './import-dialog/import-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent, ImportDialogComponent],
+  declarations: [AppComponent, NxWelcomeComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

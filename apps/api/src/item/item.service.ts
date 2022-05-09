@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateItemDto } from './dto/create-item.dto';
-import { UpdateItemDto } from './dto/update-item.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Item } from './entities/item.entity';
-import { map, Observable, of } from 'rxjs';
-import { AxiosResponse } from 'axios';
 import * as jsdom from 'jsdom';
+import { Repository } from 'typeorm';
 import { MetaTags } from '../meta-tags';
-import imageToBase64 = require('image-to-base64');
+import { CreateItemDto } from './dto/create-item.dto';
 import { ItemDto } from './dto/item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
+import { Item } from './entities/item.entity';
+import imageToBase64 = require('image-to-base64');
 
 @Injectable()
 export class ItemService {

@@ -1,11 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  ManyToOne,
-} from 'typeorm';
-import { List } from '../../list/entities/list.entity';
+import { Entity } from 'typeorm';
 
 @Entity()
 export class ItemDto {

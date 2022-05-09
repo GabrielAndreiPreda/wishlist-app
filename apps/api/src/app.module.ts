@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { Connection } from 'typeorm';
-import { ItemModule } from '../item/item.module';
-import { ListModule } from '../list/list.module';
+import { ItemModule } from './item/item.module';
+import { ListModule } from './list/list.module';
 
 @Module({
   imports: [
@@ -22,9 +19,7 @@ import { ListModule } from '../list/list.module';
     ItemModule,
     ListModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {
-  constructor(private connection: Connection) {}
-}
+export class AppModule {}

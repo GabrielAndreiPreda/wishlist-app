@@ -1,6 +1,4 @@
-import { PartialType, PickType } from '@nestjs/mapped-types';
-import { Item } from '../entities/item.entity';
-import { CreateItemDto } from './create-item.dto';
+import { PartialType } from '@nestjs/mapped-types';
 import { ItemDto } from './item.dto';
 
 export class UpdateItemDto extends PartialType(ItemDto) {}
