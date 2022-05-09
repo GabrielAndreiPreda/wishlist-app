@@ -1,19 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
-import { ListService } from './list.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Compressed } from 'compress-json';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
-import { IListExport } from '@wishlist-app/api-interfaces';
-import { Compressed } from 'compress-json';
+import { ListService } from './list.service';
 
 @Controller('wishlists')
 export class ListController {
@@ -25,8 +14,8 @@ export class ListController {
     return this.listService.create(createListDto);
   }
   @Post('import')
-  async importFromCode(@Body() code: Compressed) {
-    return this.listService.importFromCode(code);
+  async importFromCode(@Body() code: { code: string }) {
+    return this.listService.importFromCode(code.code);
   }
 
   @Get()

@@ -1,45 +1,31 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSelectionListChange } from '@angular/material/list';
 import { IItem, IList } from '@wishlist-app/api-interfaces';
 import { APIService } from '../api.service';
-import { EventService } from '../event.service';
 
 @Component({
   selector: 'wishlist-app-wishlist',
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.scss'],
 })
-export class WishlistComponent implements OnInit {
+export class WishlistComponent implements OnInit, OnChanges {
   @Input() wishlist: IList | null = null;
   @Output() reloadWishlistsEvent = new EventEmitter<string>();
   isEditing = false;
   maxLength = 255;
   items: IItem[] = [];
 
-  descriptionControl = new FormControl('', [
-    Validators.maxLength(this.maxLength),
-  ]);
-  itemControl = new FormControl('', [
-    Validators.pattern('^.*[a-zA-Z]+(.|\\s)*$'),
-  ]); // Seems like url regex validation doesn't want to work
+  descriptionControl = new FormControl('', [Validators.maxLength(this.maxLength)]);
+  itemControl = new FormControl('', [Validators.pattern('^.*[a-zA-Z]+(.|\\s)*$')]); // Seems like url regex validation doesn't want to work
 
   private get newWishlistDescription() {
     return this.descriptionControl.value;
   }
 
-  constructor(
-    private apiService: APIService,
-    private eventService: EventService
-  ) {}
+  constructor(private apiService: APIService) {}
 
-  ngOnInit(): void {
-    // this.eventService.$events.forEach((event) => {
-    //   if (event instanceof MatSelectionListChange) {
-    //     this.changeWishlist(event.options[0].value);
-    //   }
-    // });
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(): void {
     if (this.wishlist) {
@@ -78,11 +64,9 @@ export class WishlistComponent implements OnInit {
   }
   async addItem() {
     if (this.wishlist) {
-      return await this.apiService
-        .addItem(this.wishlist.id, this.itemControl.value)
-        .then(() => {
-          this.populateItems();
-        });
+      return await this.apiService.addItem(this.wishlist.id, this.itemControl.value).then(() => {
+        this.populateItems();
+      });
     }
     return 'error';
   }

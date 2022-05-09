@@ -21,32 +21,22 @@ export class APIService {
   }
 
   async removeWishlist(id: number) {
-    return await lastValueFrom(
-      this.http.delete(this.wishlistsURL + '/' + id.toString())
-    );
+    return await lastValueFrom(this.http.delete(this.wishlistsURL + '/' + id.toString()));
   }
   async createWishlist(wishlistName: string) {
-    return await lastValueFrom(
-      this.http.post<IList>(this.wishlistsURL, { name: wishlistName })
-    );
+    return await lastValueFrom(this.http.post<IList>(this.wishlistsURL, { name: wishlistName }));
   }
 
   async updateWishlist(id: number, wishlist: Partial<IList>) {
-    return await lastValueFrom(
-      this.http.patch<IList>(this.wishlistsURL + '/' + id.toString(), wishlist)
-    );
+    return await lastValueFrom(this.http.patch<IList>(this.wishlistsURL + '/' + id.toString(), wishlist));
   }
 
   async getItemsFromWishlist(id: number) {
-    return await lastValueFrom(
-      this.http.get<IItem[]>(this.getItemsURL + '/' + id.toString())
-    );
+    return await lastValueFrom(this.http.get<IItem[]>(this.getItemsURL + '/' + id.toString()));
   }
 
   async getExportCode(id: number) {
-    return await lastValueFrom(
-      this.http.get<Compressed>(this.wishlistsURL + '/export/' + id.toString())
-    );
+    return await lastValueFrom(this.http.get<string>(this.wishlistsURL + '/export/' + id.toString()));
   }
   // async importFromCode(code: Compressed) {
   //   return await lastValueFrom(

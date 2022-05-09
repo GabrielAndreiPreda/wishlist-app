@@ -32,7 +32,7 @@ $ npm install
 
 <a url="https://nx.dev/">Nx</a> can be used to run the application with the following command that starts both the front-end and back-end at the same time
 ```bash
-nx run wish-list:serve-with-services
+npm start
 ```
 For debugging the front-end and back-end can be served separately
 ```bash
@@ -56,5 +56,4 @@ Backup/share wishlist data
 - Front-end error handling incomplete
 - Snackbar message display
 - Search bar
-- Routing/resolvers 
 - Add users & make wishlist sharing between users

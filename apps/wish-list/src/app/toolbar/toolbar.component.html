@@ -1,10 +1,6 @@
 <mat-toolbar color="primary" class="toolbar">
   <div class="toolbarLeftItems">
-    <button
-      mat-button
-      (click)="toggleSidenav()"
-      color="accent"
-      class="topButton">
+    <button mat-button (click)="toggleSidenav()" class="topButton">
       <mat-icon>menu</mat-icon>
     </button>
     <div [ngSwitch]="isEditing">
@@ -19,7 +15,6 @@
         [maxLength]="20"
         label="Wishlist name"
         placeholder="Ex. Cool cat toys"
-        color="accent"
         (formChangeEvent)="getNewWishlistName($event)"
         (formEnterEvent)="saveNewWishlistName()"></wishlist-app-editing-form>
     </div>
@@ -27,44 +22,24 @@
   <div>
     <div class="rightButtons" *ngIf="wishlist">
       <!-- Save button -->
-      <button
-        mat-button
-        (click)="saveNewWishlistName()"
-        color="accent"
-        class="topButton"
-        *ngIf="isEditing">
+      <button mat-button (click)="saveNewWishlistName()" class="topButton" *ngIf="isEditing">
         <mat-icon>save</mat-icon>
       </button>
       <!-- Edit/Cancel button -->
-      <button
-        mat-button
-        (click)="toggleEditing()"
-        color="accent"
-        class="topButton"
-        [ngSwitch]="isEditing">
+      <button mat-button (click)="toggleEditing()" class="topButton" [ngSwitch]="isEditing">
         <mat-icon *ngSwitchDefault>edit</mat-icon>
         <mat-icon *ngSwitchCase="true">cancel</mat-icon>
       </button>
       <!-- Share Button -->
-      <button
-        mat-button
-        color="accent"
-        class="topButton"
-        *ngIf="!isEditing"
-        (click)="openDialog()">
+      <button mat-button class="topButton" *ngIf="!isEditing" (click)="openExportDialog()">
         <mat-icon>archive</mat-icon>
       </button>
       <!-- Import Button -->
-      <button mat-button color="accent" class="topButton" *ngIf="!isEditing">
+      <button mat-button class="topButton" *ngIf="!isEditing" (click)="openImportDialog()">
         <mat-icon>cloud_upload</mat-icon>
       </button>
       <!-- Delete button -->
-      <button
-        mat-button
-        (click)="deleteWishlist()"
-        color="accent"
-        class="topButton"
-        *ngIf="!isEditing">
+      <button mat-button (click)="deleteWishlist()" class="topButton" *ngIf="!isEditing">
         <mat-icon>delete</mat-icon>
       </button>
     </div>

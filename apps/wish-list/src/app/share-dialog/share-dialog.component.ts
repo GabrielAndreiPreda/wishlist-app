@@ -1,9 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IItem, IList, IListExport } from '@wishlist-app/api-interfaces';
 import { Compressed } from 'compress-json';
 import { APIService } from '../api.service';
@@ -14,7 +10,7 @@ import { APIService } from '../api.service';
   styleUrls: ['./share-dialog.component.scss'],
 })
 export class ShareDialogComponent {
-  code!: Compressed;
+  code!: string;
   constructor(
     private apiService: APIService,
     public dialogRef: MatDialogRef<ShareDialogComponent>,

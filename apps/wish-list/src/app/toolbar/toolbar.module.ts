@@ -9,9 +9,10 @@ import { ShareDialogComponent } from '../share-dialog/share-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ImportDialogComponent } from '../import-dialog/import-dialog.component';
 
 @NgModule({
-  declarations: [ToolbarComponent, ShareDialogComponent],
+  declarations: [ToolbarComponent, ShareDialogComponent, ImportDialogComponent],
   imports: [
     CommonModule,
     MatToolbarModule,

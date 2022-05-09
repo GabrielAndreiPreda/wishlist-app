@@ -3,8 +3,7 @@
   [color]="color"
   floatLabel="always"
   [hintLabel]="hintLabel"
-  class="wishlistForm"
->
+  class="wishlistForm">
   <mat-label *ngIf="label">{{ label }}</mat-label>
   <input
     matInput
@@ -15,7 +14,7 @@
     #input
     (keyup)="sendFormValue()"
     (keyup.enter)="saveFormValue()"
-  />
+    cdkFocusInitial />
 
   <mat-hint *ngIf="showHint" align="end"
     ><p>{{ input.value?.length || 0 }}/{{ maxLength }}</p></mat-hint
@@ -26,8 +25,7 @@
     matSuffix
     mat-icon-button
     aria-label="Clear"
-    (click)="resetWishlistForm()"
-  >
+    (click)="resetWishlistForm()">
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { IList } from '@wishlist-app/api-interfaces';
 import { APIService } from '../api.service';
+import { ImportDialogComponent } from '../import-dialog/import-dialog.component';
 import { ShareDialogComponent } from '../share-dialog/share-dialog.component';
 
 @Component({
@@ -53,11 +54,19 @@ export class ToolbarComponent implements OnInit {
       : null; //Error display to be implemented
   }
 
-  openDialog(): void {
+  openExportDialog(): void {
     if (this.wishlist) {
       const dialogRef = this.dialog.open(ShareDialogComponent, {
         width: '50%',
         data: this.wishlist,
+      });
+    }
+  }
+  openImportDialog(): void {
+    if (this.wishlist) {
+      const dialogRef = this.dialog.open(ImportDialogComponent, {
+        width: '50%',
+        data: this.reloadWishlistsEvent,
       });
     }
   }

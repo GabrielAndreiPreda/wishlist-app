@@ -1,20 +1,11 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { IList } from '@wishlist-app/api-interfaces';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormControl, Validators } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { APIService } from '../api.service';
-import { EventService } from '../event.service';
-import {
-  MatSelectionList,
-  MatSelectionListChange,
-} from '@angular/material/list';
+
+import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -25,10 +16,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class MainUIComponent implements OnInit {
   wishlists: IList[] = [];
   selectedWishlist: IList | null = null;
-  wishlistControl = new FormControl('', [
-    Validators.pattern('^.*[a-zA-Z]+(.|\\s)*$'),
-    Validators.maxLength(20),
-  ]);
+  wishlistControl = new FormControl('', [Validators.pattern('^.*[a-zA-Z]+(.|\\s)*$'), Validators.maxLength(20)]);
 
   @ViewChild('wishlistSelector') wishlistSelector!: MatSelectionList;
   @ViewChild('sidenav') sidenav!: MatSidenav;
@@ -42,10 +30,7 @@ export class MainUIComponent implements OnInit {
     return this.wishlistSelector.selectedOptions.selected[0]?.value;
   }
 
-  constructor(
-    private apiService: APIService,
-    private eventService: EventService
-  ) {}
+  constructor(private apiService: APIService) {}
 
   ngOnInit(): void {
     this.loadWishlists().then(() => {
@@ -64,9 +49,7 @@ export class MainUIComponent implements OnInit {
   async reloadWishlists() {
     this.wishlists = await this.apiService.getAllWishlists();
 
-    this.selectedWishlistIndex
-      ? this.onSelection()
-      : this.selectFirstWishlist();
+    this.selectedWishlistIndex ? this.onSelection() : this.selectFirstWishlist();
   }
 
   async createWishlist() {

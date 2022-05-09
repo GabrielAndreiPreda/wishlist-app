@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IListExport } from '@wishlist-app/api-interfaces';
+import { OrbitEncoder } from 'orbit-encoder';
 import { Repository } from 'typeorm';
 import { Item } from '../item/entities/item.entity';
+import { ItemService } from '../item/item.service';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { List } from './entities/list.entity';
-import { OrbitEncoder } from 'orbit-encoder/lib/OrbitEncoder';
-import { ItemService } from '../item/item.service';
-import { compress, Compressed, decompress } from 'compress-json';
 
 @Injectable()
 export class ListService {
@@ -38,7 +37,7 @@ export class ListService {
   }
 
   async getExportCode(id: number) {
-    return JSON.stringify(compress(await this.getListExport(id)));
+    return JSON.stringify(this.getCompressed(await this.getListExport(id)));
   }
   private async getListExport(id: number) {
     const listExport: IListExport = {
@@ -50,9 +49,9 @@ export class ListService {
     return listExport;
   }
 
-  async importFromCode(code: Compressed) {
+  async importFromCode(code: string) {
     console.log(code);
-    const listExport: IListExport = decompress(code);
+    const listExport: IListExport = this.getDecompress(code);
     console.log(listExport);
     const newList = await this.create({ name: listExport.wishlistName });
     listExport.itemsURLs.forEach((URL) => {
@@ -61,11 +60,7 @@ export class ListService {
   }
 
   async findItems(id: number) {
-    return this.itemRepository
-      .createQueryBuilder()
-      .select()
-      .where('item.wishListID = :id', { id })
-      .getMany();
+    return this.itemRepository.createQueryBuilder().select().where('item.wishListID = :id', { id }).getMany();
   }
 
   async findItemsURLs(id: number) {
@@ -81,12 +76,17 @@ export class ListService {
   }
 
   async remove(id: number) {
-    this.itemRepository
-      .createQueryBuilder()
-      .delete()
-      .where('wishListID = :id', { id })
-      .execute();
+    this.itemRepository.createQueryBuilder().delete().where('wishListID = :id', { id }).execute();
 
     return this.listRepository.delete(id);
+  }
+
+  getCompressed(obj: Record<string, any>) {
+    return OrbitEncoder.encodeWithURIsafe(obj);
+  }
+
+  getDecompress(str: string) {
+    console.log(OrbitEncoder.decodeURIsafe(str));
+    return OrbitEncoder.decodeURIsafe(str);
   }
 }

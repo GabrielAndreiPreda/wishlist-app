@@ -15,24 +15,22 @@
           color="primary"
           floatLabel="always"
           hintLabel="Max 20 characters"
-          class="wishlistForm"
-        >
+          class="wishlistForm">
           <mat-label>Add Wishlist</mat-label>
           <input
             matInput
             placeholder="Ex. Birthday gifts"
             [formControl]="wishlistControl"
             maxlength="20"
-            #input
-          />
-          <mat-hint align="end">{{ input.value?.length || 0 }}/20</mat-hint>
+            #input /><mat-hint align="end"
+            >{{ input.value?.length || 0 }}/20</mat-hint
+          >
           <button
             *ngIf="wishlistControl.value"
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="resetWishlistForm()"
-          >
+            (click)="resetWishlistForm()">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -42,8 +40,7 @@
         <button
           mat-button
           [disabled]="wishlistControl.status === 'INVALID' ? true : false"
-          (click)="createWishlist()"
-        >
+          (click)="createWishlist()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -51,15 +48,13 @@
       <mat-selection-list
         #wishlistSelector
         [multiple]="false"
-        (selectionChange)="onSelection()"
-      >
+        (selectionChange)="onSelection()">
         <mat-divider></mat-divider>
 
         <!-- Sidenav Wishlist List -->
         <mat-list-option
           *ngFor="let wishlist of wishlists; index as i"
-          [value]="i"
-        >
+          [value]="i">
           <div class="wishlistName">{{ wishlist.name }}</div>
         </mat-list-option>
       </mat-selection-list>
@@ -70,14 +65,12 @@
       <wishlist-app-toolbar
         [wishlist]="selectedWishlist"
         [parentSidenav]="sidenav"
-        (reloadWishlistsEvent)="reloadWishlists()"
-      ></wishlist-app-toolbar>
+        (reloadWishlistsEvent)="reloadWishlists()"></wishlist-app-toolbar>
 
       <!-- Wishlist Content -->
       <wishlist-app-wishlist
         [wishlist]="selectedWishlist"
-        (reloadWishlistsEvent)="reloadWishlists()"
-      ></wishlist-app-wishlist>
+        (reloadWishlistsEvent)="reloadWishlists()"></wishlist-app-wishlist>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
