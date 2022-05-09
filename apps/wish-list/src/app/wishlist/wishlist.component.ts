@@ -41,7 +41,6 @@ export class WishlistComponent implements OnInit, OnChanges {
 
   toggleEditing() {
     this.isEditing = !this.isEditing;
-    console.log(this.itemControl);
   }
 
   async saveNewWishlistDescription() {
@@ -66,6 +65,7 @@ export class WishlistComponent implements OnInit, OnChanges {
     if (this.wishlist) {
       return await this.apiService.addItem(this.wishlist.id, this.itemControl.value).then(() => {
         this.populateItems();
+        this.itemControl.reset();
       });
     }
     return 'error';

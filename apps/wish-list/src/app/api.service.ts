@@ -38,17 +38,15 @@ export class APIService {
   async getExportCode(id: number) {
     return await lastValueFrom(this.http.get<string>(this.wishlistsURL + '/export/' + id.toString()));
   }
-  // async importFromCode(code: Compressed) {
-  //   return await lastValueFrom(
-  //     this.http.post<Compressed>(this.wishlistsURL + '/import/', { code })
-  //   );
-  // }
+  async importFromCode(code: string) {
+    return await lastValueFrom(this.http.post<string>(this.wishlistsURL + '/import/', { code }));
+  }
 
-  async addItem(wishListID: number, URL: string) {
+  async addItem(wishListID: number, url: string) {
     return await lastValueFrom(
       this.http.post<IItem>(this.itemsURL, {
         wishListID,
-        URL,
+        url,
       })
     );
   }

@@ -23,4 +23,8 @@ export class ImportDialogComponent {
   copyText() {
     navigator.clipboard.writeText(JSON.stringify(this.code));
   }
+
+  async import(code: string) {
+    return this.apiService.importFromCode(code);
+  }
 }

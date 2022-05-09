@@ -16,7 +16,11 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class MainUIComponent implements OnInit {
   wishlists: IList[] = [];
   selectedWishlist: IList | null = null;
-  wishlistControl = new FormControl('', [Validators.pattern('^.*[a-zA-Z]+(.|\\s)*$'), Validators.maxLength(20)]);
+  wishlistControl = new FormControl('', [
+    Validators.pattern('^.*[a-zA-Z]+(.|\\s)*$'),
+    Validators.maxLength(20),
+    Validators.required,
+  ]);
 
   @ViewChild('wishlistSelector') wishlistSelector!: MatSelectionList;
   @ViewChild('sidenav') sidenav!: MatSidenav;
@@ -53,8 +57,10 @@ export class MainUIComponent implements OnInit {
   }
 
   async createWishlist() {
-    await this.apiService.createWishlist(this.newWishlistName);
-    window.location.reload();
+    if (this.wishlistControl.status === 'VALID') {
+      await this.apiService.createWishlist(this.newWishlistName);
+      window.location.reload();
+    }
   }
 
   /* wishlistTrackBy(index: number, wishlist: IList) {

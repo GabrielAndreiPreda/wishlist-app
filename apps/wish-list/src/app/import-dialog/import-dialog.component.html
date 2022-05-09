@@ -1,1 +1,12 @@
-<p>import-dialog works!</p>
+<h1 mat-dialog-title>Back up your wishlist</h1>
+<div mat-dialog-content>
+  <p>Import a wishlist by pasting it's code below</p>
+  <mat-form-field class="code" appearance="fill">
+    <textarea matInput #codeInput></textarea>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="import(codeInput.value)" cdkFocusInitial>Import</button>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

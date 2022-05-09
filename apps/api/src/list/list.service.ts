@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IListExport } from '@wishlist-app/api-interfaces';
+import { IList, IListExport } from '@wishlist-app/api-interfaces';
 import { OrbitEncoder } from 'orbit-encoder';
 import { Repository } from 'typeorm';
 import { Item } from '../item/entities/item.entity';
@@ -41,34 +41,38 @@ export class ListService {
   }
   private async getListExport(id: number) {
     const listExport: IListExport = {
-      wishlistName: null,
+      wishlist: { name: null, description: null },
       itemsURLs: null,
     };
-    listExport.wishlistName = (await this.findOne(id)).name;
+    const wishlist: IList = await this.findOne(id);
+    listExport.wishlist = wishlist;
     listExport.itemsURLs = await this.findItemsURLs(id);
+    console.log(listExport.itemsURLs);
     return listExport;
   }
 
   async importFromCode(code: string) {
-    console.log(code);
     const listExport: IListExport = this.getDecompress(code);
-    console.log(listExport);
-    const newList = await this.create({ name: listExport.wishlistName });
-    listExport.itemsURLs.forEach((URL) => {
-      this.itemService.create({ URL, wishListID: newList.id });
-    });
+    const newList = await this.create(listExport.wishlist as CreateListDto);
+    for await (const url of listExport.itemsURLs) {
+      this.itemService.create({ url, wishListID: newList.id });
+    }
   }
 
   async findItems(id: number) {
     return this.itemRepository.createQueryBuilder().select().where('item.wishListID = :id', { id }).getMany();
   }
 
-  async findItemsURLs(id: number) {
-    return this.itemRepository
-      .createQueryBuilder()
-      .select('item.URL')
-      .where('item.wishListID = :id', { id })
-      .getRawMany();
+  async findItemsURLs(id: number): Promise<any[]> {
+    return (
+      await this.itemRepository
+        .createQueryBuilder()
+        .select('item.url')
+        .where('item.wishListID = :id', { id })
+        .getRawMany()
+    ).map((url: string) => {
+      url.slice(5);
+    });
   }
 
   update(id: number, updateListDto: UpdateListDto) {
@@ -86,7 +90,6 @@ export class ListService {
   }
 
   getDecompress(str: string) {
-    console.log(OrbitEncoder.decodeURIsafe(str));
     return OrbitEncoder.decodeURIsafe(str);
   }
 }

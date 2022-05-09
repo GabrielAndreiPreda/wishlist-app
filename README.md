@@ -57,3 +57,4 @@ Backup/share wishlist data
 - Snackbar message display
 - Search bar
 - Add users & make wishlist sharing between users
+- Download/Upload backup

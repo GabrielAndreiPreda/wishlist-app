@@ -26,6 +26,6 @@ export class ShareDialogComponent {
   }
 
   copyText() {
-    navigator.clipboard.writeText(JSON.stringify(this.code));
+    navigator.clipboard.writeText(this.code);
   }
 }

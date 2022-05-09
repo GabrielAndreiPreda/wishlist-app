@@ -1,13 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -29,6 +20,7 @@ export class EditingFormComponent implements OnInit {
 
   @Output() formEnterEvent = new EventEmitter<string>();
   @Output() formChangeEvent = new EventEmitter<string>();
+  @Output() blurEvent = new EventEmitter<string>();
 
   hintLabel = '';
 
@@ -61,5 +53,8 @@ export class EditingFormComponent implements OnInit {
     if (this.formControl.status === 'VALID') {
       this.formEnterEvent.emit();
     }
+  }
+  onBlur() {
+    this.blurEvent.emit();
   }
 }

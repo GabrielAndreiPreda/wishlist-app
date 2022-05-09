@@ -22,10 +22,12 @@ export class ItemService {
         'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0',
     }); */
     const metaTags = new MetaTags();
+    console.log(createItemDto.url);
     try {
-      dom = await jsdom.JSDOM.fromURL(createItemDto.URL);
+      dom = await jsdom.JSDOM.fromURL(createItemDto.url);
     } catch (e) {
-      return 'Retrieval error';
+      console.log(e);
+      return e;
     }
     if (!metaTags.importTagsFromDOM(dom)) {
       return 'No tags found';
@@ -34,9 +36,9 @@ export class ItemService {
     let newItem = new ItemDto();
     newItem = metaTags as unknown as ItemDto;
     newItem.wishListID = createItemDto.wishListID;
-    newItem.URL = createItemDto.URL;
+    newItem.url = createItemDto.url;
     await this.saveURLImageAsB64(metaTags, newItem);
-
+    console.log(newItem);
     return this.itemRepository.save(newItem);
   }
 
@@ -45,10 +47,7 @@ export class ItemService {
   }
 
   async findAllOnWishlist(id: number) {
-    return this.itemRepository
-      .createQueryBuilder('item')
-      .where('item.wishListID = :id', { id })
-      .getMany();
+    return this.itemRepository.createQueryBuilder('item').where('item.wishListID = :id', { id }).getMany();
   }
 
   findOne(id: number) {

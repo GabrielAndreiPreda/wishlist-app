@@ -1,9 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 import { IItem } from '@wishlist-app/api-interfaces';
 
 @Entity()
@@ -30,7 +25,7 @@ export class Item implements IItem {
   addedOn: Date;
 
   @Column({ type: 'text' })
-  URL: string;
+  url: string;
 
   @Column({ type: 'longtext' })
   image: string;

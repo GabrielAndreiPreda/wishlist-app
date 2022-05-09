@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="toolbar">
   <div class="toolbarLeftItems">
-    <button mat-button (click)="toggleSidenav()" class="topButton">
+    <button mat-button (click)="toggleSidenav()" class="menuButton" color="primary">
       <mat-icon>menu</mat-icon>
     </button>
     <div [ngSwitch]="isEditing">
@@ -16,7 +16,8 @@
         label="Wishlist name"
         placeholder="Ex. Cool cat toys"
         (formChangeEvent)="getNewWishlistName($event)"
-        (formEnterEvent)="saveNewWishlistName()"></wishlist-app-editing-form>
+        (formEnterEvent)="saveNewWishlistName()"
+        (blurEvent)="toggleEditing()"></wishlist-app-editing-form>
     </div>
   </div>
   <div>
@@ -39,7 +40,7 @@
         <mat-icon>cloud_upload</mat-icon>
       </button>
       <!-- Delete button -->
-      <button mat-button (click)="deleteWishlist()" class="topButton" *ngIf="!isEditing">
+      <button mat-button (click)="deleteWishlist()" class="topButton" *ngIf="!isEditing" color="accent">
         <mat-icon>delete</mat-icon>
       </button>
     </div>

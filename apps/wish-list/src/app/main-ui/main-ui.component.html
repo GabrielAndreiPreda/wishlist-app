@@ -22,9 +22,9 @@
             placeholder="Ex. Birthday gifts"
             [formControl]="wishlistControl"
             maxlength="20"
-            #input /><mat-hint align="end"
-            >{{ input.value?.length || 0 }}/20</mat-hint
-          >
+            #input
+            (keyup.enter)="createWishlist()" />
+          <mat-hint align="end">{{ input.value?.length || 0 }}/20</mat-hint>
           <button
             *ngIf="wishlistControl.value"
             matSuffix
@@ -37,24 +37,16 @@
         <mat-divider vertical class="formDivider"></mat-divider>
 
         <!-- New Wishlist Button -->
-        <button
-          mat-button
-          [disabled]="wishlistControl.status === 'INVALID' ? true : false"
-          (click)="createWishlist()">
+        <button mat-button [disabled]="wishlistControl.status === 'INVALID' ? true : false" (click)="createWishlist()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
 
-      <mat-selection-list
-        #wishlistSelector
-        [multiple]="false"
-        (selectionChange)="onSelection()">
+      <mat-selection-list #wishlistSelector [multiple]="false" (selectionChange)="onSelection()">
         <mat-divider></mat-divider>
 
         <!-- Sidenav Wishlist List -->
-        <mat-list-option
-          *ngFor="let wishlist of wishlists; index as i"
-          [value]="i">
+        <mat-list-option *ngFor="let wishlist of wishlists; index as i" [value]="i">
           <div class="wishlistName">{{ wishlist.name }}</div>
         </mat-list-option>
       </mat-selection-list>

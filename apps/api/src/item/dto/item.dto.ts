@@ -1,7 +1,8 @@
+import { IItem } from '@wishlist-app/api-interfaces';
 import { Entity } from 'typeorm';
 
 @Entity()
-export class ItemDto {
+export class ItemDto implements Omit<IItem, 'id' | 'addedOn'> {
   wishListID: number;
 
   title: string;
@@ -12,7 +13,7 @@ export class ItemDto {
 
   isBought: boolean;
 
-  URL: string;
+  url: string;
 
   image: string;
 }
