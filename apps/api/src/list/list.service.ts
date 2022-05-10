@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { PickType } from '@nestjs/mapped-types';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IList, IListExport } from '@wishlist-app/api-interfaces';
 import { OrbitEncoder } from 'orbit-encoder';
+import { listenerCount } from 'process';
 import { Repository } from 'typeorm';
 import { Item } from '../item/entities/item.entity';
 import { ItemService } from '../item/item.service';
@@ -45,7 +47,9 @@ export class ListService {
       itemsURLs: null,
     };
     const wishlist: IList = await this.findOne(id);
-    listExport.wishlist = wishlist;
+    listExport.wishlist.description = wishlist.description;
+    listExport.wishlist.name = wishlist.name;
+    console.log(listExport);
     listExport.itemsURLs = await this.findItemsURLs(id);
     console.log(listExport.itemsURLs);
     return listExport;
@@ -63,16 +67,18 @@ export class ListService {
     return this.itemRepository.createQueryBuilder().select().where('item.wishListID = :id', { id }).getMany();
   }
 
-  async findItemsURLs(id: number): Promise<any[]> {
-    return (
-      await this.itemRepository
-        .createQueryBuilder()
-        .select('item.url')
-        .where('item.wishListID = :id', { id })
-        .getRawMany()
-    ).map((url: string) => {
-      url.slice(5);
-    });
+  async findItemsURLs(id: number): Promise<string[]> {
+    const urls: string[] = [];
+    const urlsObj = await this.itemRepository
+      .createQueryBuilder()
+      .select('item.url')
+      .where('item.wishListID = :id', { id })
+      .getRawMany();
+    console.log(urlsObj[0]);
+    for (let i = 0; i < urlsObj.length; i++) {
+      urls.push(urlsObj[i].url); //Really finicky with the type of loop because it's an any[]
+    }
+    return urls;
   }
 
   update(id: number, updateListDto: UpdateListDto) {
