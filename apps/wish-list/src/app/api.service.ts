@@ -4,7 +4,6 @@ import { IList, IListExport } from '@wishlist-app/api-interfaces';
 import { IItem } from '@wishlist-app/api-interfaces';
 import { catchError, tap } from 'rxjs/operators';
 import { lastValueFrom } from 'rxjs';
-import { Compressed } from 'compress-json';
 
 @Injectable({
   providedIn: 'root',

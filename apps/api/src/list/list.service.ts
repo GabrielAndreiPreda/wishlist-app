@@ -49,9 +49,7 @@ export class ListService {
     const wishlist: IList = await this.findOne(id);
     listExport.wishlist.description = wishlist.description;
     listExport.wishlist.name = wishlist.name;
-    console.log(listExport);
     listExport.itemsURLs = await this.findItemsURLs(id);
-    console.log(listExport.itemsURLs);
     return listExport;
   }
 
@@ -59,8 +57,9 @@ export class ListService {
     const listExport: IListExport = this.getDecompress(code);
     const newList = await this.create(listExport.wishlist as CreateListDto);
     for await (const url of listExport.itemsURLs) {
-      this.itemService.create({ url, wishListID: newList.id });
+      await this.itemService.create({ url, wishListID: newList.id });
     }
+    return newList;
   }
 
   async findItems(id: number) {
@@ -74,7 +73,6 @@ export class ListService {
       .select('item.url')
       .where('item.wishListID = :id', { id })
       .getRawMany();
-    console.log(urlsObj[0]);
     for (let i = 0; i < urlsObj.length; i++) {
       urls.push(urlsObj[i].url); //Really finicky with the type of loop because it's an any[]
     }

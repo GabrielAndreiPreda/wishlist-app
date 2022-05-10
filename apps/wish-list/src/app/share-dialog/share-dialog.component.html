@@ -7,6 +7,7 @@
 </div>
 
 <div mat-dialog-actions align="end">
-  <button mat-button (click)="copyText()" cdkFocusInitial>Copy</button>
+  <button mat-button (click)="downloadCode()">Download</button>
+  <button mat-button (click)="copyToClipboard()" cdkFocusInitial>Copy</button>
   <button mat-button (click)="onNoClick()">Close</button>
 </div>

@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ImportDialogComponent } from '../import-dialog/import-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [ToolbarComponent, ShareDialogComponent, ImportDialogComponent],
@@ -22,6 +23,7 @@ import { ImportDialogComponent } from '../import-dialog/import-dialog.component'
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
   ],
   exports: [ToolbarComponent],
 })

@@ -13,7 +13,7 @@
   - [To-do](#to-do)
 
 ## Overview
-Probabi-List-ic Purchases facilitates the organisation of your favorite past-time — shopping for cheapies made out of Chineseum
+Probabi-List-ic Purchases facilitates the organisation of the best past-time — shopping for cheapies made out of Chineseum
 
 ## Technologies
 The app is a single-page application that uses Angular for the front-end, NestJS for the back-end, and MySQL for the local database server
@@ -30,7 +30,7 @@ $ git clone (TO-DO)
 $ npm install
 ```
 
-<a url="https://nx.dev/">Nx</a> can be used to run the application with the following command that starts both the front-end and back-end at the same time
+Npm can be used to run the application with the following command that starts both the front-end and back-end at the same time
 ```bash
 npm start
 ```
@@ -57,4 +57,4 @@ Backup/share wishlist data
 - Snackbar message display
 - Search bar
 - Add users & make wishlist sharing between users
-- Download/Upload backup
+- ~~Download/Upload backup~~ 

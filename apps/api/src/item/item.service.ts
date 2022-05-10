@@ -22,16 +22,17 @@ export class ItemService {
         'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0',
     }); */
     const metaTags = new MetaTags();
-    console.log(createItemDto.url);
+
     try {
       dom = await jsdom.JSDOM.fromURL(createItemDto.url);
     } catch (e) {
       console.log(e);
-      return e;
+      return 'Retrieval error';
     }
     if (!metaTags.importTagsFromDOM(dom)) {
       return 'No tags found';
     }
+    console.log('PASSED URLS' + createItemDto.url);
 
     let newItem = new ItemDto();
     newItem = metaTags as unknown as ItemDto;

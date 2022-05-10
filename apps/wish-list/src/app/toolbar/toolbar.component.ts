@@ -12,15 +12,13 @@ import { ShareDialogComponent } from '../share-dialog/share-dialog.component';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
   @Input() parentSidenav!: MatSidenav;
   @Input() wishlist!: IList | null;
   @Output() reloadWishlistsEvent = new EventEmitter<string>();
   isEditing = false;
   newWishlistName = '';
   constructor(private apiService: APIService, public dialog: MatDialog) {}
-
-  ngOnInit(): void {}
 
   toggleSidenav() {
     this.parentSidenav.toggle();
@@ -67,6 +65,11 @@ export class ToolbarComponent implements OnInit {
       const dialogRef = this.dialog.open(ImportDialogComponent, {
         width: '50%',
         data: this.reloadWishlistsEvent,
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === true) {
+          this.reloadWishlistsEvent.emit();
+        }
       });
     }
   }

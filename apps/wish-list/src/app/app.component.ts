@@ -7,7 +7,5 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private http: HttpClient) {
-    // this.http.get<JSON>('/api/items').subscribe(console.log);
-  }
+  constructor(private http: HttpClient) {}
 }

@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IItem, IList, IListExport } from '@wishlist-app/api-interfaces';
-import { Compressed } from 'compress-json';
 import { APIService } from '../api.service';
+import fileDownload from 'js-file-download';
 
 @Component({
   selector: 'wishlist-app-share-dialog',
@@ -25,7 +25,10 @@ export class ShareDialogComponent {
     this.dialogRef.close();
   }
 
-  copyText() {
+  copyToClipboard() {
     navigator.clipboard.writeText(this.code);
+  }
+  downloadCode() {
+    fileDownload(this.code, `${this.wishlist.name}` + '.bkp');
   }
 }
