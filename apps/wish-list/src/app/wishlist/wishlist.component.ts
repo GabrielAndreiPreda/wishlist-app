@@ -9,7 +9,8 @@ import { APIService } from '../api.service';
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.scss'],
 })
-export class WishlistComponent implements OnInit, OnChanges {
+export class WishlistComponent implements OnChanges {
+  isLoading = false;
   @Input() wishlist: IList | null = null;
   @Output() reloadWishlistsEvent = new EventEmitter<string>();
   isEditing = false;
@@ -24,8 +25,6 @@ export class WishlistComponent implements OnInit, OnChanges {
   }
 
   constructor(private apiService: APIService) {}
-
-  ngOnInit(): void {}
 
   ngOnChanges(): void {
     if (this.wishlist) {
@@ -63,9 +62,11 @@ export class WishlistComponent implements OnInit, OnChanges {
   }
   async addItem() {
     if (this.wishlist) {
+      this.isLoading = true;
       return await this.apiService.addItem(this.wishlist.id, this.itemControl.value).then(() => {
         this.populateItems();
         this.itemControl.reset();
+        this.isLoading = false;
       });
     }
     return 'error';

@@ -7,11 +7,9 @@ import { APIService } from '../api.service';
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
 })
-export class ItemComponent implements OnInit {
+export class ItemComponent {
   @Input() item!: IItem;
   constructor(private apiService: APIService) {}
-
-  ngOnInit(): void {}
 
   async increaseQuantity() {
     return await this.apiService.updateItem(this.item.id, {

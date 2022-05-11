@@ -2,32 +2,23 @@
   <mat-card-title-group>
     <mat-card-title>{{ item.title }}</mat-card-title>
 
-    <img
-      mat-card-md-image
-      *ngIf="item.image"
-      [src]="'data:image/png;base64,' + item.image" />
+    <img mat-card-md-image *ngIf="item.image" [src]="'data:image/png;base64,' + item.image" />
   </mat-card-title-group>
   <mat-card-content>
     <p>{{ item.description }}</p>
   </mat-card-content>
   <mat-divider inset></mat-divider>
-  <mat-card-actions align="end">
-    <p>quantity:</p>
-    <button
-      mat-button
-      (click)="decreaseQuantity()"
-      color="primary"
-      class="button">
-      <mat-icon>remove</mat-icon>
-    </button>
-    <p>{{ item.quantity }}</p>
-    <button
-      mat-button
-      (click)="increaseQuantity()"
-      color="primary"
-      class="button">
-      <mat-icon>add</mat-icon>
-    </button>
+  <mat-card-actions align="end" style="display: flex; flex-wrap: wrap">
+    <div style="display: flex">
+      <p>quantity:</p>
+      <button mat-button (click)="decreaseQuantity()" color="primary" class="button">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <p>{{ item.quantity }}</p>
+      <button mat-button (click)="increaseQuantity()" color="primary" class="button">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
 
     <button mat-button (click)="openItemLink()" color="primary" class="button">
       <mat-icon>add</mat-icon>

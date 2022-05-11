@@ -20,7 +20,7 @@ export class EditingFormComponent implements OnInit {
 
   @Output() formEnterEvent = new EventEmitter<string>();
   @Output() formChangeEvent = new EventEmitter<string>();
-  @Output() blurEvent = new EventEmitter<string>();
+  @Output() escEvent = new EventEmitter<string>();
 
   hintLabel = '';
 
@@ -37,7 +37,6 @@ export class EditingFormComponent implements OnInit {
   }
   ngAfterViewInit() {
     //Produces an error, needs a better way of focusing the input
-    this.inputElement.nativeElement.focus();
   }
 
   resetWishlistForm() {
@@ -54,7 +53,7 @@ export class EditingFormComponent implements OnInit {
       this.formEnterEvent.emit();
     }
   }
-  onBlur() {
-    this.blurEvent.emit();
+  onEsc() {
+    this.escEvent.emit();
   }
 }

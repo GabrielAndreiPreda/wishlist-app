@@ -19,6 +19,7 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
 import { EditingFormComponent } from '../editing-form/editing-form.component';
 import { EditingFormModule } from '../editing-form/editing-form.module';
 import { WishlistModule } from '../wishlist/wishlist.module';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [MainUIComponent],
@@ -37,6 +38,7 @@ import { WishlistModule } from '../wishlist/wishlist.module';
     ToolbarModule,
     EditingFormModule,
     WishlistModule,
+    MatSlideToggleModule,
   ],
   exports: [MainUIComponent],
 })

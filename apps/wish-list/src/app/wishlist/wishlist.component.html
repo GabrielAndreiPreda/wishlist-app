@@ -2,24 +2,17 @@
   <mat-card-content [ngSwitch]="isEditing" class="descriptionSection">
     <!-- Description text -->
     <p *ngSwitchDefault class="description">
-      {{
-        wishlist ? wishlist.description : 'Choose or create a wishlist to begin'
-      }}
+      {{ wishlist ? wishlist.description : 'Choose or create a wishlist to begin' }}
     </p>
 
     <!-- Description Edit Form -->
-    <mat-form-field
-      *ngSwitchCase="true"
-      color="primary"
-      class="descriptionForm"
-    >
+    <mat-form-field *ngSwitchCase="true" color="primary" class="descriptionForm">
       <mat-label>Wishlist description</mat-label>
       <textarea
         matInput
         placeholder="Ex. Propane and Propane Accessories"
         [formControl]="descriptionControl"
-        #descriptionInput
-      ></textarea>
+        #descriptionInput></textarea>
       <mat-hint align="end">
         <p>{{ descriptionInput.value?.length || 0 }}/{{ maxLength }}</p>
       </mat-hint>
@@ -27,22 +20,10 @@
 
     <!-- Buttons -->
     <div>
-      <button
-        mat-button
-        (click)="saveNewWishlistDescription()"
-        color="primary"
-        class="button"
-        *ngIf="isEditing"
-      >
+      <button mat-button (click)="saveNewWishlistDescription()" color="primary" class="button" *ngIf="isEditing">
         <mat-icon>save</mat-icon>
       </button>
-      <button
-        mat-button
-        (click)="toggleEditing()"
-        color="primary"
-        class="button"
-        [ngSwitch]="isEditing"
-      >
+      <button mat-button (click)="toggleEditing()" color="primary" class="button" [ngSwitch]="isEditing">
         <mat-icon *ngSwitchDefault>drawing</mat-icon>
         <mat-icon *ngSwitchCase="true">cancel</mat-icon>
       </button>
@@ -59,22 +40,20 @@
         matInput
         placeholder="https://www.emag.ro/butelie-gaz-gpl-26-litri-propan-butan-butelie-camping-compatibila-cu-aragaz-filet-1-2-metal-dalban-121/pd/D9DS2PMBM/"
         [formControl]="itemControl"
-        #itemInput
-      />
+        #itemInput />
     </mat-form-field>
-    <button
-      mat-button
-      (click)="addItem()"
-      color="primary"
-      class="button"
-      [disabled]="itemControl.status === 'INVALID'"
-    >
+    <button mat-button (click)="addItem()" color="primary" class="button" [disabled]="itemControl.status === 'INVALID'">
       <mat-icon>add</mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>
 
 <!-- Items Grid -->
-<ng-container *ngFor="let item of items">
-  <wishlist-app-item [item]="item"> </wishlist-app-item>
+<ng-container *ngFor="let item of items; index as i">
+  <div *ngIf="i % 3 === 0" class="itemRow">
+    <wishlist-app-item [item]="items[i]" class="item" *ngIf="i < items.length"> </wishlist-app-item>
+    <wishlist-app-item [item]="items[i + 1]" *ngIf="i + 1 < items.length" class="item"> </wishlist-app-item>
+    <wishlist-app-item [item]="items[i + 2]" *ngIf="i + 2 < items.length" class="item"> </wishlist-app-item>
+  </div>
 </ng-container>
+<wishlist-app-loading-spinner *ngIf="isLoading"></wishlist-app-loading-spinner>

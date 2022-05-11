@@ -1,3 +1,4 @@
+
 .button{
     font-size: xx-large
 }
@@ -24,4 +25,14 @@
 .itemForm{
     width: 30%;
     margin-left: 1%;
+}
+
+.itemRow{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.item{
+    width: 33%;
 }

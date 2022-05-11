@@ -41,28 +41,28 @@
           <mat-icon>add</mat-icon>
         </button>
       </div>
+      <mat-divider></mat-divider>
 
-      <mat-selection-list #wishlistSelector [multiple]="false" (selectionChange)="onSelection()">
-        <mat-divider></mat-divider>
+      <!-- Sidenav Wishlist List -->
 
-        <!-- Sidenav Wishlist List -->
+      <mat-selection-list #wishlistSelector [multiple]="false" (selectionChange)="onSelection()" class="list">
         <mat-list-option *ngFor="let wishlist of wishlists; index as i" [value]="i">
           <div class="wishlistName">{{ wishlist.name }}</div>
         </mat-list-option>
       </mat-selection-list>
     </mat-sidenav>
 
-    <mat-sidenav-content>
+    <mat-sidenav-content class="content">
       <!-- Toolbar -->
       <wishlist-app-toolbar
         [wishlist]="selectedWishlist"
         [parentSidenav]="sidenav"
-        (reloadWishlistsEvent)="reloadWishlists()"></wishlist-app-toolbar>
+        (reloadWishlistsEvent)="reloadWishlists()">
+      </wishlist-app-toolbar>
 
       <!-- Wishlist Content -->
-      <wishlist-app-wishlist
-        [wishlist]="selectedWishlist"
-        (reloadWishlistsEvent)="reloadWishlists()"></wishlist-app-wishlist>
+      <wishlist-app-wishlist [wishlist]="selectedWishlist" (reloadWishlistsEvent)="reloadWishlists()">
+      </wishlist-app-wishlist>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

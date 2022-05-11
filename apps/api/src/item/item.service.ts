@@ -17,11 +17,9 @@ export class ItemService {
   ) {}
   async create(createItemDto: CreateItemDto) {
     let dom: jsdom.JSDOM;
-    /* const resourceLoader = new jsdom.ResourceLoader({
-      userAgent:
-        'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0',
-    }); */
     const metaTags = new MetaTags();
+
+    createItemDto.url = this.getPathFromUrl(createItemDto.url);
 
     try {
       dom = await jsdom.JSDOM.fromURL(createItemDto.url);
@@ -32,14 +30,12 @@ export class ItemService {
     if (!metaTags.importTagsFromDOM(dom)) {
       return 'No tags found';
     }
-    console.log('PASSED URLS' + createItemDto.url);
 
     let newItem = new ItemDto();
     newItem = metaTags as unknown as ItemDto;
     newItem.wishListID = createItemDto.wishListID;
     newItem.url = createItemDto.url;
     await this.saveURLImageAsB64(metaTags, newItem);
-    console.log(newItem);
     return this.itemRepository.save(newItem);
   }
 
@@ -52,7 +48,7 @@ export class ItemService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} item`;
+    return this.itemRepository.findOne(id);
   }
 
   async update(id: number, updateItemDto: UpdateItemDto) {
@@ -72,5 +68,10 @@ export class ItemService {
         newItem.image = metaTags.image ? metaTags.image : '';
         console.log(error);
       });
+  }
+
+  /* Query paramters removal */
+  private getPathFromUrl(url: string): string {
+    return url.split('?')[0];
   }
 }

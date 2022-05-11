@@ -9,7 +9,7 @@
     #input
     (keyup)="sendFormValue()"
     (keyup.enter)="saveFormValue()"
-    (blur)="onBlur()" />
+    (keyup.escape)="onEsc()" />
 
   <mat-hint *ngIf="showHint" align="end"
     ><p>{{ input.value?.length || 0 }}/{{ maxLength }}</p></mat-hint

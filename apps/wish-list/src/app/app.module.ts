@@ -18,17 +18,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { MainUIResolver } from './mainUI.resolver';
 import { APIService } from './api.service';
 import { ImportDialogComponent } from './import-dialog/import-dialog.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    MainUIModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-  ],
+  imports: [BrowserModule, HttpClientModule, MainUIModule, BrowserAnimationsModule, AppRoutingModule],
   providers: [MainUIResolver],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

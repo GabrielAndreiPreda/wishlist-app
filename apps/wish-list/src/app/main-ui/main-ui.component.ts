@@ -58,8 +58,11 @@ export class MainUIComponent implements OnInit {
 
   async createWishlist() {
     if (this.wishlistControl.status === 'VALID') {
-      await this.apiService.createWishlist(this.newWishlistName);
-      window.location.reload();
+      await this.apiService.createWishlist(this.newWishlistName).then(() => {
+        this.resetWishlistForm();
+        this.reloadWishlists();
+        this.selectFirstWishlist();
+      });
     }
   }
 

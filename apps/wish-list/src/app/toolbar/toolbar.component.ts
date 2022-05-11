@@ -61,16 +61,14 @@ export class ToolbarComponent {
     }
   }
   openImportDialog(): void {
-    if (this.wishlist) {
-      const dialogRef = this.dialog.open(ImportDialogComponent, {
-        width: '50%',
-        data: this.reloadWishlistsEvent,
-      });
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result === true) {
-          this.reloadWishlistsEvent.emit();
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(ImportDialogComponent, {
+      width: '50%',
+      data: this.reloadWishlistsEvent,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.reloadWishlistsEvent.emit();
+      }
+    });
   }
 }
