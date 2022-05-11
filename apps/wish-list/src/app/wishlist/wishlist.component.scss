@@ -27,12 +27,23 @@
     margin-left: 1%;
 }
 
-.itemRow{
-    display: flex;
+.itemGrid{
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 1rem;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
 }
 
+
 .item{
-    width: 33%;
+
+}
+
+@media (min-width: 900px) {
+    .itemGrid {   grid-template-columns: repeat(2, 1fr); }
+  }
+
+@media (min-width: 1200px) {
+    .itemGrid  { grid-template-columns: repeat(3, 1fr); }
 }

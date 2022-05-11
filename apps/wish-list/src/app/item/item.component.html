@@ -19,15 +19,16 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
-
-    <button mat-button (click)="openItemLink()" color="primary" class="button">
-      <mat-icon>add</mat-icon>
-    </button>
-    <button mat-button (click)="toggleBought()" color="primary" class="button">
-      <mat-icon>add_shopping_cart</mat-icon>
-    </button>
-    <button mat-button (click)="deleteItem()" color="primary" class="button">
-      <mat-icon>add</mat-icon>
-    </button>
+    <div style="display: flex">
+      <button mat-button (click)="openItemLink()" color="primary" class="button">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-button (click)="toggleBought()" color="primary" class="button">
+        <mat-icon>add_shopping_cart</mat-icon>
+      </button>
+      <button mat-button (click)="deleteItem()" color="primary" class="button">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </mat-card-actions>
 </mat-card>

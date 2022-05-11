@@ -8,7 +8,7 @@ $sideNavRightPadding : 2%;
 .sideNav{
     display: flex;
     width: 15%;
-
+    min-width: 300px;
     padding: 1%;
     justify-content: space-around;
 }
@@ -63,7 +63,7 @@ $sideNavRightPadding : 2%;
     height: 50px;
     display: flex; 
     align-items: flex-end;
-    justify-content: end;
+    justify-content: flex-end;
 
 }
 
