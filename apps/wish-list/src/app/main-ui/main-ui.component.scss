@@ -53,19 +53,12 @@ $sideNavRightPadding : 2%;
 }
 
 .list{
-    height: 65%;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0px;
+    height: 75%;
 }
 
-.slider{
-    height: 50px;
-    display: flex; 
-    align-items: flex-end;
-    justify-content: flex-end;
-
-}
 
 
 /* width */

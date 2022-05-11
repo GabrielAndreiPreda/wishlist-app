@@ -7,6 +7,7 @@ import { APIService } from '../api.service';
 
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { MatSidenav } from '@angular/material/sidenav';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'wishlist-app-main-ui',
@@ -80,5 +81,13 @@ export class MainUIComponent implements OnInit {
 
   toggleSidenav() {
     this.sidenav.toggle();
+  }
+  toggleDarkMode(event: MatSlideToggleChange) {
+    console.log(event);
+    if (event.checked) {
+      document.body.className = 'dark-theme';
+    } else {
+      document.body.className = '';
+    }
   }
 }

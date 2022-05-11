@@ -57,7 +57,8 @@
       <wishlist-app-toolbar
         [wishlist]="selectedWishlist"
         [parentSidenav]="sidenav"
-        (reloadWishlistsEvent)="reloadWishlists()">
+        (reloadWishlistsEvent)="reloadWishlists()"
+        (darkModeToggleEvent)="toggleDarkMode($event)">
       </wishlist-app-toolbar>
 
       <!-- Wishlist Content -->

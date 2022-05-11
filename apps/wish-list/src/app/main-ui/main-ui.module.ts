@@ -38,7 +38,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     ToolbarModule,
     EditingFormModule,
     WishlistModule,
-    MatSlideToggleModule,
   ],
   exports: [MainUIComponent],
 })

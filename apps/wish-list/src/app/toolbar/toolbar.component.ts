@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { IList } from '@wishlist-app/api-interfaces';
 import { APIService } from '../api.service';
 import { ImportDialogComponent } from '../import-dialog/import-dialog.component';
@@ -16,6 +18,7 @@ export class ToolbarComponent {
   @Input() parentSidenav!: MatSidenav;
   @Input() wishlist!: IList | null;
   @Output() reloadWishlistsEvent = new EventEmitter<string>();
+  @Output() darkModeToggleEvent = new EventEmitter<MatSlideToggleChange>();
   isEditing = false;
   newWishlistName = '';
   constructor(private apiService: APIService, public dialog: MatDialog) {}
@@ -70,5 +73,8 @@ export class ToolbarComponent {
         this.reloadWishlistsEvent.emit();
       }
     });
+  }
+  toggleDarkMode(event: MatSlideToggleChange) {
+    this.darkModeToggleEvent.emit(event);
   }
 }
