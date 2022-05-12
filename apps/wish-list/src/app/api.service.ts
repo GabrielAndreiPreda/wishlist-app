@@ -19,7 +19,12 @@ export class APIService {
 
   // Wishlist CRUD
   async createWishlist(wishlistName: string) {
-    return await lastValueFrom(this.http.post<IList>(this.wishlistsURL, { name: wishlistName }));
+    return await lastValueFrom(
+      this.http.post<IList>(this.wishlistsURL, { name: wishlistName })
+    );
+  }
+  async getWishlist(id: number) {
+    return await lastValueFrom(this.http.get<IList>(this.wishlistsURL + id));
   }
   async getAllWishlists() {
     return await lastValueFrom(this.http.get<IList[]>(this.wishlistsURL));
@@ -28,7 +33,9 @@ export class APIService {
     return await lastValueFrom(this.http.get<IItem[]>(this.getItemsURL + id.toString()));
   }
   async updateWishlist(id: number, wishlist: Partial<IList>) {
-    return await lastValueFrom(this.http.patch<IList>(this.wishlistsURL + id.toString(), wishlist));
+    return await lastValueFrom(
+      this.http.patch<IList>(this.wishlistsURL + id.toString(), wishlist)
+    );
   }
   async deleteWishlist(id: number) {
     return await lastValueFrom(this.http.delete(this.wishlistsURL + id.toString()));

@@ -9,6 +9,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  word-break: break-all;
 }
 .productImage {
   border: 2px solid gray;
@@ -21,4 +22,13 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.cardActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cardActionsSection {
+  display: flex;
 }

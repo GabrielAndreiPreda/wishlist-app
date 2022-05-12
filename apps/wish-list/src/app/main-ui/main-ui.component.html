@@ -37,7 +37,10 @@
         <mat-divider vertical class="formDivider"></mat-divider>
 
         <!-- New Wishlist Button -->
-        <button mat-button [disabled]="wishlistControl.status === 'INVALID' ? true : false" (click)="createWishlist()">
+        <button
+          mat-button
+          [disabled]="wishlistControl.status === 'INVALID' ? true : false"
+          (click)="createWishlist()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -45,7 +48,11 @@
 
       <!-- Sidenav Wishlist List -->
 
-      <mat-selection-list #wishlistSelector [multiple]="false" (selectionChange)="onSelection()" class="list">
+      <mat-selection-list
+        #wishlistSelector
+        [multiple]="false"
+        (selectionChange)="onSelection()"
+        class="list">
         <mat-list-option *ngFor="let wishlist of wishlists; index as i" [value]="i">
           <div class="wishlistName">{{ wishlist.name }}</div>
         </mat-list-option>
@@ -62,7 +69,9 @@
       </wishlist-app-toolbar>
 
       <!-- Wishlist Content -->
-      <wishlist-app-wishlist [wishlist]="selectedWishlist" (reloadWishlistsEvent)="reloadWishlists()">
+      <wishlist-app-wishlist
+        [wishlist]="selectedWishlist"
+        (reloadWishlistsEvent)="reloadWishlists()">
       </wishlist-app-wishlist>
     </mat-sidenav-content>
   </mat-sidenav-container>

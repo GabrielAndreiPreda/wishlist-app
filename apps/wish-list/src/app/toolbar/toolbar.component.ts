@@ -37,14 +37,11 @@ export class ToolbarComponent {
 
   async saveNewWishlistName() {
     if (this.wishlist) {
-      this.apiService
-        .updateWishlist(this.wishlist.id, {
-          name: this.newWishlistName,
-        })
-        .then(() => {
-          this.reloadWishlistsEvent.emit();
-          this.toggleEditing();
-        });
+      await this.apiService.updateWishlist(this.wishlist.id, {
+        name: this.newWishlistName,
+      });
+      this.reloadWishlistsEvent.emit();
+      this.toggleEditing();
     }
   }
   async deleteWishlist() {

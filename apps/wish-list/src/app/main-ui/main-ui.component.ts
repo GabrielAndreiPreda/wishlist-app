@@ -8,6 +8,7 @@ import { APIService } from '../api.service';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { last } from 'rxjs';
 
 @Component({
   selector: 'wishlist-app-main-ui',
@@ -46,6 +47,10 @@ export class MainUIComponent implements OnInit {
   private selectFirstWishlist() {
     this.selectedWishlist = this.wishlists[0] ? this.wishlists[0] : null;
   }
+  private selectLastWishlist() {
+    let lastIndex = this.wishlists.length - 1;
+    this.selectedWishlist = this.wishlists[lastIndex] ? this.wishlists[lastIndex] : null;
+  }
 
   private async loadWishlists() {
     this.wishlists = await this.apiService.getAllWishlists();
@@ -53,17 +58,29 @@ export class MainUIComponent implements OnInit {
 
   async reloadWishlists() {
     this.wishlists = await this.apiService.getAllWishlists();
+    if (!this.selectedWishlistIndex) {
+      this.selectFirstWishlist();
+      return;
+    }
+    if (this.selectedWishlistIndex >= this.wishlists.length) {
+      this.selectLastWishlist();
+      return;
+    }
 
-    this.selectedWishlistIndex ? this.onSelection() : this.selectFirstWishlist();
+    this.onSelection();
   }
 
   async createWishlist() {
     if (this.wishlistControl.status === 'VALID') {
-      await this.apiService.createWishlist(this.newWishlistName).then(() => {
+      try {
+        this.wishlists.unshift(
+          await this.apiService.createWishlist(this.newWishlistName)
+        );
         this.resetWishlistForm();
-        this.reloadWishlists();
         this.selectFirstWishlist();
-      });
+      } catch (error) {
+        console.log(error); //Future snackbar
+      }
     }
   }
 
@@ -83,7 +100,6 @@ export class MainUIComponent implements OnInit {
     this.sidenav.toggle();
   }
   toggleDarkMode(event: MatSlideToggleChange) {
-    console.log(event);
     if (event.checked) {
       document.body.className = 'dark-theme';
     } else {

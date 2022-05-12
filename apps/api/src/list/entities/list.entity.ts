@@ -1,10 +1,5 @@
 import { IList } from '@wishlist-app/api-interfaces';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class List implements IList {
@@ -14,7 +9,7 @@ export class List implements IList {
   @Column()
   name: string;
 
-  @Column({ default: 'Tap the edit button to add a description' })
+  @Column({ default: 'Click the edit button to add a description' })
   description: string;
 
   @CreateDateColumn()

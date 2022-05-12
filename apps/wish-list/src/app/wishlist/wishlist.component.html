@@ -67,7 +67,7 @@
   </mat-card>
 
   <!-- Items Grid -->
-  <div class="itemGrid">
+  <div class="itemGrid" *ngIf="wishlist">
     <ng-container *ngFor="let item of items; index as i">
       <wishlist-app-item
         [item]="item"

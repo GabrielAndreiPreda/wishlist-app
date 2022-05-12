@@ -1,9 +1,9 @@
 
 
-# Probabi-List-ic Purchases - the local MySQL wishlist
+# Probabi-List-ic Purchases - the (local) MySQL wishlist
 
 ## Table of contents
-- [Probabi-List-ic Purchases - the local MySQL wishlist](#probabi-list-ic-purchases---the-local-mysql-wishlist)
+- [Probabi-List-ic Purchases - the (local) MySQL wishlist](#probabi-list-ic-purchases---the-local-mysql-wishlist)
   - [Table of contents](#table-of-contents)
   - [Overview](#overview)
   - [Technologies](#technologies)
@@ -24,7 +24,7 @@ To clone and run this application, you'll need Git and Node.js installed on your
 
 ```bash
 # Clone this repository
-$ git clone (TO-DO)
+$ git clone https://github.com/GabrielAndreiPreda/wishlist-app
 
 # Install dependencies
 $ npm install
@@ -40,10 +40,15 @@ nx wish-list:serve
 nx api:serve
 ```
 
-The local database has to be on the default port (3306) and the username & password have to be both 'root' 
+The local MySQL database has to be on the default port (3306) and the username & password have to be both '```root```' to work out of the box.
+
+These settings can be changed in the NestJS ```app.module``` file (```wishlist-app\apps\api\src\app.module.ts```)
 
 ## Features
-Backup/share wishlist data
+- Backup/share wishlist data
+- Dark mode
+- Semi-responsive layout
+- Supports pretty much any website that has some sort of tags for their products
 
 ## Tested websites
 - AliExpress
@@ -54,9 +59,7 @@ Backup/share wishlist data
 
 ## To-do
 
-- Back-end error handling incomplete
-- Front-end error handling incomplete
-- Snackbar message display
+- Snackbar message display for errors
 - Search bar
 - Add users & make wishlist sharing between users
 - ~~Download/Upload backup~~ 
