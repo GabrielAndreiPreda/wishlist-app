@@ -5,29 +5,61 @@
 // Define a light theme
 $light-primary: mat.define-palette(mat.$blue-palette);
 $light-accent: mat.define-palette(mat.$deep-orange-palette);
-$light-theme: mat.define-light-theme((
- color: (
-   primary: $light-primary,
-   accent: $light-accent,
- )
-));
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $light-primary,
+      accent: $light-accent,
+    ),
+  )
+);
 
 // Define a dark theme
-$dark-primary: mat.define-palette(mat.$deep-orange-palette);
-$dark-accent: mat.define-palette(mat.$deep-purple-palette);
-$dark-theme: mat.define-dark-theme((
- color: (
-   primary: $dark-primary,
-   accent: $dark-accent,
- )
-));
+$dark-primary: mat.define-palette(mat.$blue-grey-palette, 300);
+$dark-accent: mat.define-palette(mat.$deep-orange-palette, 700);
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $dark-primary,
+      accent: $dark-accent,
+    ),
+  )
+);
 
 // Apply the dark theme by default
 
 @include mat.all-component-themes($light-theme);
-.dark-theme {
-    @include mat.all-component-themes($dark-theme);
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  box-shadow: inset 0 0 2px gray;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

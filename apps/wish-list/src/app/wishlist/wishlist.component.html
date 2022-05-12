@@ -2,9 +2,11 @@
   <mat-card>
     <mat-card-content [ngSwitch]="isEditing" class="descriptionSection">
       <!-- Description text -->
-      <p *ngSwitchDefault class="description">
-        {{ wishlist ? wishlist.description : 'Choose or create a wishlist to begin' }}
-      </p>
+      <div *ngSwitchDefault class="description">
+        <p>
+          {{ wishlist ? wishlist.description : 'Choose or create a wishlist to begin' }}
+        </p>
+      </div>
 
       <!-- Description Edit Form -->
       <mat-form-field *ngSwitchCase="true" color="primary" class="descriptionForm">
@@ -21,10 +23,20 @@
 
       <!-- Buttons -->
       <div>
-        <button mat-button (click)="saveNewWishlistDescription()" color="primary" class="button" *ngIf="isEditing">
+        <button
+          mat-button
+          (click)="saveNewWishlistDescription()"
+          color="primary"
+          class="button"
+          *ngIf="isEditing">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-button (click)="toggleEditing()" color="primary" class="button" [ngSwitch]="isEditing">
+        <button
+          mat-button
+          (click)="toggleEditing()"
+          color="primary"
+          class="button"
+          [ngSwitch]="isEditing">
           <mat-icon *ngSwitchDefault>drawing</mat-icon>
           <mat-icon *ngSwitchCase="true">cancel</mat-icon>
         </button>
@@ -57,7 +69,11 @@
   <!-- Items Grid -->
   <div class="itemGrid">
     <ng-container *ngFor="let item of items; index as i">
-      <wishlist-app-item [item]="item" class="item"> </wishlist-app-item>
+      <wishlist-app-item
+        [item]="item"
+        class="item"
+        (deleteItemEvent)="removeItemFromArr(i)">
+      </wishlist-app-item>
     </ng-container>
   </div>
 

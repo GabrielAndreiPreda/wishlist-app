@@ -30,6 +30,9 @@ export class APIService {
   async updateWishlist(id: number, wishlist: Partial<IList>) {
     return await lastValueFrom(this.http.patch<IList>(this.wishlistsURL + id.toString(), wishlist));
   }
+  async deleteWishlist(id: number) {
+    return await lastValueFrom(this.http.delete(this.wishlistsURL + id.toString()));
+  }
 
   //Item CRUD
   async createItem(wishListID: number, url: string) {
@@ -47,9 +50,8 @@ export class APIService {
   async updateItem(id: number, item: Partial<IItem>) {
     return await lastValueFrom(this.http.patch(this.itemsURL + id, item));
   }
-
-  async removeWishlist(id: number) {
-    return await lastValueFrom(this.http.delete(this.wishlistsURL + id.toString()));
+  async deleteItem(id: number) {
+    return await lastValueFrom(this.http.delete(this.itemsURL + id.toString()));
   }
 
   // Import / Export

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IItem } from '@wishlist-app/api-interfaces';
 import { APIService } from '../api.service';
 
@@ -9,6 +9,7 @@ import { APIService } from '../api.service';
 })
 export class ItemComponent {
   @Input() item!: IItem;
+  @Output() deleteItemEvent = new EventEmitter<string>();
   constructor(private apiService: APIService) {}
 
   async increaseQuantity() {
@@ -38,12 +39,22 @@ export class ItemComponent {
   }
 
   openItemLink() {
-    return;
+    window.open(this.item.url);
   }
-  toggleBought() {
-    return;
+  async toggleBought() {
+    this.item.isBought = !this.item.isBought;
+    return await this.apiService
+      .updateItem(this.item.id, {
+        isBought: this.item.isBought,
+      })
+      .catch((error) => {
+        console.log(error);
+        this.item.isBought = !this.item.isBought;
+      });
   }
-  deleteItem() {
-    return;
+  async deleteItem() {
+    await this.apiService.deleteItem(this.item.id).then(() => {
+      this.deleteItemEvent.emit();
+    });
   }
 }

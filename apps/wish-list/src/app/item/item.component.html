@@ -1,17 +1,27 @@
 <mat-card class="card">
   <mat-card-title-group>
-    <mat-card-title>{{ item.title }}</mat-card-title>
+    <mat-card-title class="title">{{ item.title }}</mat-card-title>
 
-    <img mat-card-md-image *ngIf="item.image" [src]="'data:image/png;base64,' + item.image" class="productImage" />
+    <img
+      mat-card-md-image
+      *ngIf="item.image"
+      [src]="'data:image/png;base64,' + item.image"
+      class="productImage" />
   </mat-card-title-group>
   <mat-card-content>
-    <p>{{ item.description }}</p>
+    <p class="description">{{ item.description }}</p>
   </mat-card-content>
   <mat-divider inset></mat-divider>
-  <mat-card-actions align="end" style="display: flex; flex-wrap: wrap">
+  <mat-card-actions
+    align="end"
+    style="display: flex; flex-wrap: wrap; justify-content: center">
     <div style="display: flex">
-      <p>quantity:</p>
-      <button mat-button (click)="decreaseQuantity()" color="primary" class="button" [disabled]="item.quantity <= 0">
+      <button
+        mat-button
+        (click)="decreaseQuantity()"
+        color="primary"
+        class="button"
+        [disabled]="item.quantity < 2">
         <mat-icon>remove</mat-icon>
       </button>
       <p>{{ item.quantity }}</p>
@@ -21,13 +31,14 @@
     </div>
     <div style="display: flex">
       <button mat-button (click)="openItemLink()" color="primary" class="button">
-        <mat-icon>add</mat-icon>
+        <mat-icon>launch</mat-icon>
       </button>
       <button mat-button (click)="toggleBought()" color="primary" class="button">
-        <mat-icon>add_shopping_cart</mat-icon>
+        <mat-icon *ngIf="!item.isBought">add_shopping_cart</mat-icon>
+        <mat-icon *ngIf="item.isBought">remove_shopping_cart</mat-icon>
       </button>
-      <button mat-button (click)="deleteItem()" color="primary" class="button">
-        <mat-icon>add</mat-icon>
+      <button mat-button (click)="deleteItem()" color="accent" class="button">
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
   </mat-card-actions>

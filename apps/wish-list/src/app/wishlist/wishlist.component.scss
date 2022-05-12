@@ -1,49 +1,52 @@
-
-.button{
-    font-size: xx-large
+.button {
+  font-size: xx-large;
 }
-.descriptionSection{
-    display: flex;
-    text-align: center;
-    justify-content: space-between;
-}
-
-.description{
-    display: flex;
-    text-align: center;
-    font-size: large;
-}
-.descriptionForm{
-    width: 50%;
+.descriptionSection {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  word-break: normal;
 }
 
-.newItemSection{
-    display: flex;
-    text-align: center;
-    align-items: center;
+.description {
+  display: flex;
+  text-align: center;
+  font-size: large;
 }
-.itemForm{
-    width: 30%;
-    margin-left: 1%;
-}
-
-.itemGrid{
-    margin: 0 auto;
-    display: grid;
-    grid-gap: 1rem;
-    justify-content: center;
-    align-items: center;
+.descriptionForm {
+  width: 50%;
 }
 
+.newItemSection {
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+.itemForm {
+  width: 30%;
+  margin-left: 1%;
+}
 
-.item{
+.itemGrid {
+  margin: 0 auto;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
 
+.item {
+  overflow: auto;
 }
 
 @media (min-width: 900px) {
-    .itemGrid {   grid-template-columns: repeat(2, 1fr); }
+  .itemGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
 
 @media (min-width: 1200px) {
-    .itemGrid  { grid-template-columns: repeat(3, 1fr); }
+  .itemGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

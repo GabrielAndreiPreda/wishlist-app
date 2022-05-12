@@ -63,12 +63,17 @@ export class WishlistComponent implements OnChanges {
   async addItem() {
     if (this.wishlist) {
       this.isLoading = true;
-      return await this.apiService.createItem(this.wishlist.id, this.itemControl.value).then(() => {
-        this.populateItems();
-        this.itemControl.reset();
-        this.isLoading = false;
-      });
+      return await this.apiService
+        .createItem(this.wishlist.id, this.itemControl.value)
+        .then(() => {
+          this.populateItems();
+          this.itemControl.reset();
+          this.isLoading = false;
+        });
     }
     return 'error';
+  }
+  async removeItemFromArr(id: number) {
+    this.items.splice(id, 1);
   }
 }

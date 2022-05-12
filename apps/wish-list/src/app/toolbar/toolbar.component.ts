@@ -49,7 +49,7 @@ export class ToolbarComponent {
   }
   async deleteWishlist() {
     return this.wishlist
-      ? this.apiService.removeWishlist(this.wishlist.id).then(() => {
+      ? this.apiService.deleteWishlist(this.wishlist.id).then(() => {
           this.reloadWishlistsEvent.emit();
         })
       : null; //Error display to be implemented
