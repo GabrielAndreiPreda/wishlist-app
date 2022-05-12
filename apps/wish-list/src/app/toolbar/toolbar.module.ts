@@ -13,6 +13,7 @@ import { ImportDialogComponent } from '../import-dialog/import-dialog.component'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [ToolbarComponent, ShareDialogComponent, ImportDialogComponent],
@@ -28,6 +29,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatProgressSpinnerModule,
     LoadingSpinnerModule,
     MatSlideToggleModule,
+    MatDividerModule,
   ],
   exports: [ToolbarComponent],
 })

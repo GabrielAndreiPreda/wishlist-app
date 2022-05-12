@@ -40,6 +40,8 @@ nx wish-list:serve
 nx api:serve
 ```
 
+The local database has to be on the default port (3306) and the username & password have to be both 'root' 
+
 ## Features
 Backup/share wishlist data
 

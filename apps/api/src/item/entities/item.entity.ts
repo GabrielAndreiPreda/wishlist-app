@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 import { IItem } from '@wishlist-app/api-interfaces';
+import { Min } from 'class-validator';
 
 @Entity()
 export class Item implements IItem {

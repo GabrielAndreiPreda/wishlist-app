@@ -12,15 +12,31 @@ export class ItemComponent {
   constructor(private apiService: APIService) {}
 
   async increaseQuantity() {
-    return await this.apiService.updateItem(this.item.id, {
-      quantity: this.item.quantity + 1,
-    });
+    this.item.quantity++; //Fludization for the front-end
+    return await this.apiService
+      .updateItem(this.item.id, {
+        quantity: this.item.quantity,
+      })
+      .catch((error) => {
+        //console.log(error);
+        this.item.quantity--;
+      });
   }
   async decreaseQuantity() {
-    return await this.apiService.updateItem(this.item.id, {
-      quantity: this.item.quantity - 1,
-    });
+    this.item.quantity--;
+    return await this.apiService
+      .updateItem(this.item.id, {
+        quantity: this.item.quantity,
+      })
+      .catch((error) => {
+        //console.log(error);
+        this.item.quantity++;
+      });
   }
+  private async refreshItem() {
+    this.item = await this.apiService.getItem(this.item.id);
+  }
+
   openItemLink() {
     return;
   }

@@ -9,39 +9,30 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class APIService {
-  private wishlistsURL = 'api/wishlists';
-  private getItemsURL = 'api/wishlists/items';
-  private itemsURL = 'api/items';
+  private wishlistsURL = 'api/wishlists/';
+  private getItemsURL = 'api/wishlists/items/';
+  private itemsURL = 'api/items/';
+  private importURL = 'api/wishlists/import/';
+  private exportURL = 'api/wishlists/export/';
 
   constructor(private http: HttpClient) {}
 
-  async getAllWishlists() {
-    return await lastValueFrom(this.http.get<IList[]>(this.wishlistsURL));
-  }
-
-  async removeWishlist(id: number) {
-    return await lastValueFrom(this.http.delete(this.wishlistsURL + '/' + id.toString()));
-  }
+  // Wishlist CRUD
   async createWishlist(wishlistName: string) {
     return await lastValueFrom(this.http.post<IList>(this.wishlistsURL, { name: wishlistName }));
   }
-
-  async updateWishlist(id: number, wishlist: Partial<IList>) {
-    return await lastValueFrom(this.http.patch<IList>(this.wishlistsURL + '/' + id.toString(), wishlist));
+  async getAllWishlists() {
+    return await lastValueFrom(this.http.get<IList[]>(this.wishlistsURL));
   }
-
   async getItemsFromWishlist(id: number) {
-    return await lastValueFrom(this.http.get<IItem[]>(this.getItemsURL + '/' + id.toString()));
+    return await lastValueFrom(this.http.get<IItem[]>(this.getItemsURL + id.toString()));
+  }
+  async updateWishlist(id: number, wishlist: Partial<IList>) {
+    return await lastValueFrom(this.http.patch<IList>(this.wishlistsURL + id.toString(), wishlist));
   }
 
-  async getExportCode(id: number) {
-    return await lastValueFrom(this.http.get<string>(this.wishlistsURL + '/export/' + id.toString()));
-  }
-  async importFromCode(code: string) {
-    return await lastValueFrom(this.http.post<string>(this.wishlistsURL + '/import/', { code }));
-  }
-
-  async addItem(wishListID: number, url: string) {
+  //Item CRUD
+  async createItem(wishListID: number, url: string) {
     return await lastValueFrom(
       this.http.post<IItem>(this.itemsURL, {
         wishListID,
@@ -49,8 +40,24 @@ export class APIService {
       })
     );
   }
+  async getItem(id: number) {
+    return await lastValueFrom(this.http.get<IItem>(this.itemsURL + id));
+  }
 
   async updateItem(id: number, item: Partial<IItem>) {
-    throw new Error('Method not implemented.');
+    return await lastValueFrom(this.http.patch(this.itemsURL + id, item));
+  }
+
+  async removeWishlist(id: number) {
+    return await lastValueFrom(this.http.delete(this.wishlistsURL + id.toString()));
+  }
+
+  // Import / Export
+  async getExportCode(id: number) {
+    return await lastValueFrom(this.http.get<string>(this.exportURL + id.toString()));
+  }
+
+  async importFromCode(code: string) {
+    return await lastValueFrom(this.http.post<string>(this.importURL, { code }));
   }
 }

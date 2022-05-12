@@ -63,7 +63,7 @@ export class WishlistComponent implements OnChanges {
   async addItem() {
     if (this.wishlist) {
       this.isLoading = true;
-      return await this.apiService.addItem(this.wishlist.id, this.itemControl.value).then(() => {
+      return await this.apiService.createItem(this.wishlist.id, this.itemControl.value).then(() => {
         this.populateItems();
         this.itemControl.reset();
         this.isLoading = false;

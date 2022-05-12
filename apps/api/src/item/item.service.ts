@@ -8,6 +8,7 @@ import { ItemDto } from './dto/item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { Item } from './entities/item.entity';
 import imageToBase64 = require('image-to-base64');
+import { validate } from 'class-validator';
 
 @Injectable()
 export class ItemService {
