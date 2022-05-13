@@ -1,60 +1,54 @@
-.toolbar{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-    height: 8vh;
-    div button mat-icon{
-        line-height: 0.8em;
-    }
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  height: 8vh;
+  div button mat-icon {
+    line-height: 0.8em;
+  }
 }
 
-
-
-.topButton{
-    display: flex;
-    font-size: xx-large ;
-    align-items: center;
-    justify-content: center;
+.topButton {
+  display: flex;
+  font-size: xx-large;
+  align-items: center;
+  justify-content: center;
 }
 
-.menuButton{
-    @extend .topButton;
-    border: 3px solid whitesmoke;
-    border-style: outset;
-    margin-right: 5%;
-    background-color: white;
-
+.menuButton {
+  @extend .topButton;
+  border: 3px solid whitesmoke;
+  border-style: outset;
+  margin-right: 5%;
+  background-color: white;
 }
 
 .menuButton:active {
-    border-style: inset;
+  border-style: inset;
 }
 
-
-
-.toolbarLeftItems{
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: space-between;
+.toolbarLeftItems {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.rightButtons{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.rightButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.slider{
-    height: 50px;
-    display: flex; 
-    align-items: flex-end;
-    justify-content: flex-end;
-
+.slider {
+  height: 50px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
-.divider{
-    height: 50px;
-    margin:2%;
+.divider {
+  height: 50px;
+  margin: 2%;
 }

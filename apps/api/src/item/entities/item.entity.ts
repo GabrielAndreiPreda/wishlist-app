@@ -27,6 +27,8 @@ export class Item implements IItem {
 
   @Column({ type: 'text' })
   url: string;
+  @Column({ type: 'text' })
+  host: string;
 
   @Column({ type: 'longtext' })
   image: string;

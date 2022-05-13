@@ -1,6 +1,9 @@
 <h1 mat-dialog-title>Import a wishlist</h1>
 <div mat-dialog-content>
-  <p>Paste its code below or upload the backup</p>
+  <p>
+    Paste its code below or upload the backup. This may take a minute for big wishlists
+  </p>
+  <p>If an item is missing after the backup it may have been moved to another link</p>
   <mat-form-field class="code" appearance="fill">
     <textarea matInput #codeInput></textarea>
   </mat-form-field>
@@ -8,7 +11,9 @@
 
 <div mat-dialog-actions align="end">
   <input type="file" accept=".bkp" (change)="openFile($event)" />
-  <button mat-button (click)="importFromCode(codeInput.value)" cdkFocusInitial>Import</button>
+  <button mat-button (click)="importFromCode(codeInput.value)" cdkFocusInitial>
+    Import
+  </button>
   <button mat-button (click)="onNoClick()">Close</button>
 </div>
 <wishlist-app-loading-spinner *ngIf="isLoading"></wishlist-app-loading-spinner>

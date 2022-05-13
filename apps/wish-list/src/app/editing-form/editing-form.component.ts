@@ -1,4 +1,14 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -8,7 +18,7 @@ import { MatInput } from '@angular/material/input';
   templateUrl: './editing-form.component.html',
   styleUrls: ['./editing-form.component.scss'],
 })
-export class EditingFormComponent implements OnInit {
+export class EditingFormComponent implements OnInit, AfterViewInit {
   @Input() showHint = false;
   @Input() maxLength = 255;
   @Input() placeholder = '';
@@ -36,7 +46,10 @@ export class EditingFormComponent implements OnInit {
     this.hintLabel = this.showHint ? `Max ${this.maxLength} characters` : '';
   }
   ngAfterViewInit() {
-    //Produces an error, needs a better way of focusing the input
+    // Hack avoiding `ExpressionChangedAfterItHasBeenCheckedError` error
+    Promise.resolve(null).then(() => {
+      this.inputElement.nativeElement.focus();
+    });
   }
 
   resetWishlistForm() {

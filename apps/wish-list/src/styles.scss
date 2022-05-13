@@ -26,7 +26,7 @@ $dark-theme: mat.define-dark-theme(
   )
 );
 
-// Apply the dark theme by default
+// Apply the light theme by default
 
 @include mat.all-component-themes($light-theme);
 

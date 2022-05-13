@@ -4,6 +4,11 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { IItem, IList } from '@wishlist-app/api-interfaces';
 import { APIService } from '../api.service';
 
+enum SortOptions {
+  date = 'Date added',
+  store = 'Store',
+}
+
 @Component({
   selector: 'wishlist-app-wishlist',
   templateUrl: './wishlist.component.html',
@@ -16,9 +21,13 @@ export class WishlistComponent implements OnChanges {
   isEditing = false;
   maxLength = 255;
   items: IItem[] = [];
+  sortOptions = SortOptions;
 
   descriptionControl = new FormControl('', [Validators.maxLength(this.maxLength)]);
-  itemControl = new FormControl('', [Validators.pattern('^.*[a-zA-Z]+(.|\\s)*$')]); // Seems like url regex validation doesn't want to work
+  itemControl = new FormControl('', [
+    Validators.pattern('^.*[a-zA-Z]+(.|\\s)*$'),
+    Validators.required,
+  ]); // Seems like url regex validation doesn't want to work
 
   private get newWishlistDescription() {
     return this.descriptionControl.value;
@@ -43,15 +52,12 @@ export class WishlistComponent implements OnChanges {
   }
 
   async saveNewWishlistDescription() {
-    if (this.wishlist) {
-      this.apiService
-        .updateWishlist(this.wishlist.id, {
-          description: this.newWishlistDescription,
-        })
-        .then(() => {
-          this.reloadWishlistsEvent.emit();
-          this.toggleEditing();
-        });
+    if (this.wishlist && this.itemControl.valid) {
+      await this.apiService.updateWishlist(this.wishlist.id, {
+        description: this.newWishlistDescription,
+      });
+      this.reloadWishlistsEvent.emit();
+      this.toggleEditing();
     }
   }
 
@@ -62,18 +68,22 @@ export class WishlistComponent implements OnChanges {
   }
   async addItem() {
     if (this.wishlist) {
-      this.isLoading = true;
-      return await this.apiService
+      this.toggleLoadingSpinner();
+      await this.apiService
         .createItem(this.wishlist.id, this.itemControl.value)
-        .then(() => {
-          this.populateItems();
-          this.itemControl.reset();
-          this.isLoading = false;
+        .catch((error) => {
+          console.log(error); //Show in snackbar
         });
+      await this.populateItems();
+      this.itemControl.reset();
+      this.toggleLoadingSpinner();
     }
-    return 'error';
   }
   async removeItemFromArr(id: number) {
     this.items.splice(id, 1);
+  }
+
+  private toggleLoadingSpinner() {
+    this.isLoading = !this.isLoading;
   }
 }

@@ -9,17 +9,24 @@ import { APIService } from '../api.service';
 })
 export class ImportDialogComponent {
   isLoading = false;
-  constructor(private apiService: APIService, public dialogRef: MatDialogRef<ImportDialogComponent>) {}
+  constructor(
+    private apiService: APIService,
+    public dialogRef: MatDialogRef<ImportDialogComponent>
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   async importFromCode(code: string) {
-    this.isLoading = true;
-    return await this.apiService.importFromCode(code).then(() => {
+    this.toggleLoadingSpinner();
+    try {
+      await this.apiService.importFromCode(code);
       this.dialogRef.close(true);
-    });
+    } catch (error) {
+      console.log(error);
+      this.toggleLoadingSpinner();
+    }
   }
 
   async openFile(event: Event) {
@@ -37,5 +44,8 @@ export class ImportDialogComponent {
       };
       reader.readAsText(file);
     }
+  }
+  private toggleLoadingSpinner() {
+    this.isLoading = !this.isLoading;
   }
 }

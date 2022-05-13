@@ -16,6 +16,7 @@ export interface IItem {
   id: number;
 
   wishListID: number;
+  host: string;
 
   title: string;
 

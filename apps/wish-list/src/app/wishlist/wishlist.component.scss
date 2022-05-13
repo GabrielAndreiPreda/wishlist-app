@@ -18,14 +18,30 @@
   width: 50%;
 }
 
-.newItemSection {
+.cardActions {
   display: flex;
   text-align: center;
   align-items: center;
+  justify-content: space-evenly;
+}
+.newItemSection {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 70%;
 }
 .itemForm {
   width: 30%;
   margin-left: 1%;
+}
+.sortSection {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+
+  p {
+    width: 7vw;
+  }
 }
 
 .itemGrid {

@@ -44,25 +44,42 @@
     </mat-card-content>
     <mat-divider inset></mat-divider>
 
-    <!-- Add Item Form -->
-    <mat-card-actions class="newItemSection">
-      <p>Add a new item:</p>
-      <mat-form-field color="primary" class="itemForm">
-        <mat-label> Item URL</mat-label>
-        <input
-          matInput
-          placeholder="https://www.emag.ro/butelie-gaz-gpl-26-litri-propan-butan-butelie-camping-compatibila-cu-aragaz-filet-1-2-metal-dalban-121/pd/D9DS2PMBM/"
-          [formControl]="itemControl"
-          #itemInput />
-      </mat-form-field>
-      <button
-        mat-button
-        (click)="addItem()"
-        color="primary"
-        class="button"
-        [disabled]="itemControl.status === 'INVALID'">
-        <mat-icon>add</mat-icon>
-      </button>
+    <!-- Card Actions -->
+    <mat-card-actions class="cardActions">
+      <!-- Add Item Form -->
+      <div class="newItemSection">
+        <p>Add a new item:</p>
+        <mat-form-field color="primary" class="itemForm">
+          <mat-label> Item URL</mat-label>
+          <input
+            matInput
+            placeholder="https://www.emag.ro/butelie-gaz-gpl-26-litri-propan-butan-butelie-camping-compatibila-cu-aragaz-filet-1-2-metal-dalban-121/pd/D9DS2PMBM/"
+            [formControl]="itemControl"
+            #itemInput />
+        </mat-form-field>
+        <button
+          mat-button
+          (click)="addItem()"
+          color="primary"
+          class="button"
+          [disabled]="itemControl.status === 'INVALID'">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <!-- Sorting Section -->
+      <div class="sortSection">
+        <p>Sort by:</p>
+        <mat-form-field>
+          <mat-select>
+            <mat-option
+              *ngFor="let option of sortOptions | keyvalue"
+              [value]="option.key"
+              >{{ option.value }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
     </mat-card-actions>
   </mat-card>
 

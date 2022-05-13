@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpCode, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PickType } from '@nestjs/mapped-types';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IList, IListExport } from '@wishlist-app/api-interfaces';
@@ -39,7 +39,7 @@ export class ListService {
   }
 
   async getExportCode(id: number) {
-    return JSON.stringify(this.getCompressed(await this.getListExport(id)));
+    return JSON.stringify(this.compress(await this.getListExport(id)));
   }
   private async getListExport(id: number) {
     const listExport: IListExport = {
@@ -54,8 +54,10 @@ export class ListService {
   }
 
   async importFromCode(code: string) {
-    const listExport: IListExport = this.getDecompress(code);
-    const newList = await this.create(listExport.wishlist as CreateListDto);
+    const listExport: IListExport = this.decompress(code);
+    const newList = await this.create(listExport.wishlist as CreateListDto).catch(() => {
+      throw new HttpException({ error: 'Invalid code' }, HttpStatus.BAD_REQUEST);
+    });
     for await (const url of listExport.itemsURLs) {
       await this.itemService.create({ url, wishListID: newList.id });
     }
@@ -63,7 +65,11 @@ export class ListService {
   }
 
   async findItems(id: number) {
-    return this.itemRepository.createQueryBuilder().select().where('item.wishListID = :id', { id }).getMany();
+    return this.itemRepository
+      .createQueryBuilder()
+      .select()
+      .where('item.wishListID = :id', { id })
+      .getMany();
   }
 
   async findItemsURLs(id: number): Promise<string[]> {
@@ -84,16 +90,20 @@ export class ListService {
   }
 
   async remove(id: number) {
-    this.itemRepository.createQueryBuilder().delete().where('wishListID = :id', { id }).execute();
+    this.itemRepository
+      .createQueryBuilder()
+      .delete()
+      .where('wishListID = :id', { id })
+      .execute();
 
     return this.listRepository.delete(id);
   }
 
-  getCompressed(obj: Record<string, any>) {
+  compress(obj: Record<string, any>) {
     return OrbitEncoder.encodeWithURIsafe(obj);
   }
 
-  getDecompress(str: string) {
+  decompress(str: string) {
     return OrbitEncoder.decodeURIsafe(str);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as jsdom from 'jsdom';
 import { Repository } from 'typeorm';
@@ -19,23 +19,34 @@ export class ItemService {
   async create(createItemDto: CreateItemDto) {
     let dom: jsdom.JSDOM;
     const metaTags = new MetaTags();
-
-    createItemDto.url = this.getPathFromUrl(createItemDto.url);
+    let url: URL;
+    try {
+      url = new URL(createItemDto.url);
+    } catch (error) {
+      throw new HttpException({ error: 'Invalid URL' }, HttpStatus.BAD_REQUEST);
+    }
+    createItemDto.url = url.origin + url.pathname; // Remove query
 
     try {
       dom = await jsdom.JSDOM.fromURL(createItemDto.url);
     } catch (e) {
       console.log(e);
-      return 'Retrieval error';
+      throw new HttpException({ error: 'Retrieval error' }, HttpStatus.NOT_FOUND);
     }
+
     if (!metaTags.importTagsFromDOM(dom)) {
-      return 'No tags found';
+      throw new HttpException(
+        { error: "Website doesn't support product extraction" },
+        HttpStatus.NOT_FOUND
+      );
     }
 
     let newItem = new ItemDto();
     newItem = metaTags as unknown as ItemDto;
     newItem.wishListID = createItemDto.wishListID;
     newItem.url = createItemDto.url;
+    newItem.host = url.hostname.split('.')[1];
+    console.log(newItem.host);
     await this.saveURLImageAsB64(metaTags, newItem);
     return this.itemRepository.save(newItem);
   }
@@ -45,7 +56,10 @@ export class ItemService {
   }
 
   async findAllOnWishlist(id: number) {
-    return this.itemRepository.createQueryBuilder('item').where('item.wishListID = :id', { id }).getMany();
+    return this.itemRepository
+      .createQueryBuilder('item')
+      .where('item.wishListID = :id', { id })
+      .getMany();
   }
 
   findOne(id: number) {
@@ -69,10 +83,5 @@ export class ItemService {
         newItem.image = metaTags.image ? metaTags.image : '';
         console.log(error);
       });
-  }
-
-  /* Query paramters removal */
-  private getPathFromUrl(url: string): string {
-    return url.split('?')[0];
   }
 }

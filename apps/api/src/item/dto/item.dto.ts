@@ -14,6 +14,7 @@ export class ItemDto implements Omit<IItem, 'id' | 'addedOn'> {
   isBought: boolean;
 
   url: string;
+  host: string;
 
   image: string;
 }

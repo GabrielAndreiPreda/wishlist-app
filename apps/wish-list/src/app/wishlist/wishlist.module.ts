@@ -11,6 +11,7 @@ import { ItemComponent } from '../item/item.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [WishlistComponent, ItemComponent],
@@ -25,6 +26,7 @@ import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module'
     MatInputModule,
     MatDividerModule,
     LoadingSpinnerModule,
+    MatSelectModule,
   ],
   exports: [WishlistComponent],
 })

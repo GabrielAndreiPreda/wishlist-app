@@ -1,12 +1,14 @@
-<mat-card class="card">
+<mat-card class="card" [ngClass]="{ boughtIndicator: item.isBought }">
   <mat-card-title-group>
     <mat-card-title class="title">{{ item.title }}</mat-card-title>
-
-    <img
-      mat-card-md-image
-      *ngIf="item.image"
-      [src]="'data:image/png;base64,' + item.image"
-      class="productImage" />
+    <div class="imageWrapper">
+      <img
+        mat-card-md-image
+        *ngIf="item.image"
+        [src]="'data:image/png;base64,' + item.image"
+        class="productImage" />
+      <div *ngIf="item.isBought" class="checkMark"><mat-icon>checkmark</mat-icon></div>
+    </div>
   </mat-card-title-group>
   <mat-card-content>
     <p class="description">{{ item.description }}</p>
