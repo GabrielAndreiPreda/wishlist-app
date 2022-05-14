@@ -63,4 +63,4 @@ These settings can be changed in the NestJS ```app.module``` file (```wishlist-a
 - Search bar
 - Add users & make wishlist sharing between users
 - ~~Download/Upload backup~~ 
-- Add an HttpInterceptor to handle errors and showing the loading spinner automatically
+- Make sorting by store functional

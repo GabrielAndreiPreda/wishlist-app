@@ -9,11 +9,11 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class APIService {
-  private wishlistsURL = 'api/wishlists/';
-  private getItemsURL = 'api/wishlists/items/';
-  private itemsURL = 'api/items/';
-  private importURL = 'api/wishlists/import/';
-  private exportURL = 'api/wishlists/export/';
+  private wishlistsURL = 'http://localhost:3333/api/wishlists/';
+  private getItemsURL = 'http://localhost:3333/api/wishlists/items/';
+  private itemsURL = 'http://localhost:3333/api/items/';
+  private importURL = 'http://localhost:3333/api/wishlists/import/';
+  private exportURL = 'http://localhost:3333/api/wishlists/export/';
 
   constructor(private http: HttpClient) {}
 
