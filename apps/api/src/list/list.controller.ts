@@ -15,6 +15,9 @@ import { UpdateListDto } from './dto/update-list.dto';
 import { ListService } from './list.service';
 import { Request } from 'express';
 import { Public } from '../auth/public.decorator';
+import { User } from '../users/entities/user.entity';
+import { IGetUserAuthInfoRequest, IList } from '@wishlist-app/api-interfaces';
+import { AssignedListDto } from './dto/assigned-list.dto';
 
 @Controller('wishlists')
 export class ListController {
@@ -22,19 +25,36 @@ export class ListController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  async create(@Body() createListDto: CreateListDto, @Req() request: Request) {
-    return this.listService.create(createListDto);
+  async create(
+    @Body() createListDto: CreateListDto,
+    @Req() request: IGetUserAuthInfoRequest
+  ) {
+    console.log(request.user);
+    const newList: AssignedListDto = {
+      name: createListDto.name,
+      description: createListDto.description,
+      userId: request.user.userId,
+    };
+    console.log(newList);
+
+    return this.listService.create(newList);
   }
   @Post('import')
-  async importFromCode(@Body() code: { code: string }) {
-    return this.listService.importFromCode(code.code);
+  async importFromCode(
+    @Body() code: { code: string },
+    @Req() request: IGetUserAuthInfoRequest
+  ) {
+    return this.listService.importFromCode(code.code, request.user.userId);
   }
 
-  @Public()
   @Get()
-  async findAll(@Req() request: Request): Promise<any[]> {
+  async findAll(@Req() request: IGetUserAuthInfoRequest): Promise<any[]> {
     console.log(request.user);
     return this.listService.findAll();
+  }
+  @Get()
+  async findAllForUser(@Req() request: IGetUserAuthInfoRequest): Promise<any[]> {
+    return this.listService.findAllForUser(request.user.userId);
   }
 
   @Get(':id')

@@ -1,9 +1,12 @@
+import { Request } from 'express';
+
 export interface Message {
   message: string;
 }
 
 export interface IList {
   id: number;
+  userId: number;
 
   name: string;
 
@@ -36,4 +39,11 @@ export interface IItem {
 export interface IListExport {
   wishlist: { name: string; description: string };
   itemsURLs: string[];
+}
+
+export interface IGetUserAuthInfoRequest extends Request {
+  user: {
+    userId: number;
+    username: string;
+  };
 }
