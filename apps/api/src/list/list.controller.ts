@@ -1,7 +1,20 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { ListService } from './list.service';
+import { Request } from 'express';
+import { Public } from '../auth/public.decorator';
 
 @Controller('wishlists')
 export class ListController {
@@ -9,7 +22,7 @@ export class ListController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  async create(@Body() createListDto: CreateListDto) {
+  async create(@Body() createListDto: CreateListDto, @Req() request: Request) {
     return this.listService.create(createListDto);
   }
   @Post('import')
@@ -17,8 +30,10 @@ export class ListController {
     return this.listService.importFromCode(code.code);
   }
 
+  @Public()
   @Get()
-  async findAll(): Promise<any[]> {
+  async findAll(@Req() request: Request): Promise<any[]> {
+    console.log(request.user);
     return this.listService.findAll();
   }
 

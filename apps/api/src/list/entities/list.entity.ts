@@ -7,6 +7,9 @@ export class List implements IList {
   id: number;
 
   @Column()
+  userId: number;
+
+  @Column()
   name: string;
 
   @Column({ default: 'Click the edit button to add a description' })
