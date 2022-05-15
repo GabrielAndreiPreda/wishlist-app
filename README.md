@@ -2,6 +2,8 @@
 
 # Probabi-List-ic Purchases - the (local) MySQL wishlist
 
+![HomeImage](https://i.imgur.com/8qdJA7F.png)
+
 ## Table of contents
 - [Probabi-List-ic Purchases - the (local) MySQL wishlist](#probabi-list-ic-purchases---the-local-mysql-wishlist)
   - [Table of contents](#table-of-contents)
