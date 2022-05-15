@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom';
+import { MetaTagsConstants } from './meta-tags.constants';
 
 /* Should be split into property of the meta tag required and the suffix (like "og:")  */
 const TYPESOFTAGS = ["property='og:", "name='", "itemprop='"];
@@ -17,6 +18,7 @@ export class MetaTags {
       this.populateWithContent(titleElement, descriptionElement, imageElement);
 
       if (this.tagsAreFound()) {
+        this.fillInMissingTags();
         return true;
       }
     }
@@ -35,15 +37,11 @@ export class MetaTags {
 
   //Should've just made an tagElements array instead for simplicity
   private getTagElementsFromHead(head: HTMLHeadElement, typeofTag: string) {
-    const titleElement = head.querySelector(
-      '[' + typeofTag + "title'" + '][content]'
-    );
+    const titleElement = head.querySelector('[' + typeofTag + "title'" + '][content]');
     const descriptionElement = head.querySelector(
       '[' + typeofTag + "description'" + '][content]'
     );
-    const imageElement = head.querySelector(
-      '[' + typeofTag + "image'" + '][content]'
-    );
+    const imageElement = head.querySelector('[' + typeofTag + "image'" + '][content]');
 
     return { titleElement, descriptionElement, imageElement };
   }
@@ -53,13 +51,21 @@ export class MetaTags {
   }
 
   private tagsAreFound() {
-    if (
-      this.title === null &&
-      this.description === null &&
-      this.image === null
-    ) {
+    if (this.title === null && this.description === null && this.image === null) {
       return false;
     }
     return true;
+  }
+
+  private fillInMissingTags() {
+    if (this.title === null) {
+      this.title = MetaTagsConstants.titleNotFound;
+    }
+    if (this.description === null) {
+      this.description = MetaTagsConstants.descriptionNotFound;
+    }
+    if (this.image === null) {
+      this.image = MetaTagsConstants.imageNotFoundB64;
+    }
   }
 }
