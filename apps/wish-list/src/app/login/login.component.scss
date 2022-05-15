@@ -1,0 +1,19 @@
+.wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 10%;
+}
+.loginDialog {
+  display: flex;
+  justify-content: space-between;
+  margin: 2%;
+}
+.loginForm {
+  height: 50%;
+}
+.tabs {
+  display: flex;
+  align-items: center;
+}

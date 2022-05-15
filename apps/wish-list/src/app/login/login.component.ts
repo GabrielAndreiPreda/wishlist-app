@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
       username: '',
       password: '',
     });
+    document.body.className = ''; //Turn off darkmode
   }
   async register() {
     const authInfo: { username: string; password: string } =

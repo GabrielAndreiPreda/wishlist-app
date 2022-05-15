@@ -44,7 +44,10 @@ The local MySQL database has to be on the default port (3306) and the username &
 
 These settings can be changed in the NestJS ```app.module``` file (```wishlist-app\apps\api\src\app.module.ts```)
 
+A starter database export can be found in the ```Optional Setup``` folder. Alternatively you may create a ```'wishlist'``` schema and the tables will be created automatically on start-up
+
 ## Features
+- Multiple users
 - Backup/share wishlist data
 - Dark mode
 - Semi-responsive layout
@@ -56,11 +59,14 @@ These settings can be changed in the NestJS ```app.module``` file (```wishlist-a
 - eMag
 - BioSano
 - Etsy
+- Auchan
+- Amazon
 
 ## To-do
 
 - Snackbar message display for errors
 - Search bar
-- Add users & make wishlist sharing between users
+- ~~Add users~~ 
+- Make wishlist sharing between users
 - ~~Download/Upload backup~~ 
 - Make sorting by store functional
