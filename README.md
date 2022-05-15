@@ -45,7 +45,7 @@ The local MySQL database has to be on the default port (3306) and the username &
 
 These settings can be changed in the NestJS ```app.module``` file (```wishlist-app\apps\api\src\app.module.ts```)
 
-A starter database export can be found in the ```Optional Setup``` folder. Alternatively you may create a ```'wishlist'``` schema and the tables will be created automatically on start-up
+A starter database export can be found in the ```Optional Setup``` folder with a pre-made user (```username:test & pass:123```). Alternatively you may create a ```'wishlist'``` schema and the tables will be created automatically on start-up
 
 ## Features
 - Multiple users
