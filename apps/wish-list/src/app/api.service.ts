@@ -43,7 +43,9 @@ export class APIService {
   }
   async updateWishlist(id: number, wishlist: Partial<IList>) {
     return await lastValueFrom(
-      this.http.patch<IList>(this.wishlistsURL + id.toString(), wishlist)
+      this.http.patch<IList>(this.wishlistsURL + id.toString(), wishlist, {
+        withCredentials: true,
+      })
     );
   }
   async deleteWishlist(id: number) {

@@ -15,6 +15,8 @@ export class AuthService {
     return lastValueFrom(this.http.post(this.registerURL, { username, password }));
   }
   async login(username: string, password: string) {
-    return lastValueFrom(this.http.post(this.loginURL, { username, password }));
+    return lastValueFrom(
+      this.http.post(this.loginURL, { username, password }, { withCredentials: true })
+    );
   }
 }

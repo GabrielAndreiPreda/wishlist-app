@@ -52,10 +52,11 @@ export class WishlistComponent implements OnChanges {
   }
 
   async saveNewWishlistDescription() {
-    if (this.wishlist && this.itemControl.valid) {
+    if (this.wishlist && this.descriptionControl.valid) {
       await this.apiService.updateWishlist(this.wishlist.id, {
         description: this.newWishlistDescription,
       });
+
       this.reloadWishlistsEvent.emit();
       this.toggleEditing();
     }
