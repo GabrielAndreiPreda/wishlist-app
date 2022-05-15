@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IList, IListExport } from '@wishlist-app/api-interfaces';
+import { IList } from '@wishlist-app/api-interfaces';
 import { IItem } from '@wishlist-app/api-interfaces';
-import { catchError, tap } from 'rxjs/operators';
 import { lastValueFrom } from 'rxjs';
 
 @Injectable({
@@ -20,17 +19,27 @@ export class APIService {
   // Wishlist CRUD
   async createWishlist(wishlistName: string) {
     return await lastValueFrom(
-      this.http.post<IList>(this.wishlistsURL, { name: wishlistName })
+      this.http.post<IList>(
+        this.wishlistsURL,
+        { name: wishlistName },
+        { withCredentials: true }
+      )
     );
   }
   async getWishlist(id: number) {
-    return await lastValueFrom(this.http.get<IList>(this.wishlistsURL + id));
+    return await lastValueFrom(
+      this.http.get<IList>(this.wishlistsURL + id, { withCredentials: true })
+    );
   }
   async getAllWishlists() {
-    return await lastValueFrom(this.http.get<IList[]>(this.wishlistsURL));
+    return await lastValueFrom(
+      this.http.get<IList[]>(this.wishlistsURL, { withCredentials: true })
+    );
   }
   async getItemsFromWishlist(id: number) {
-    return await lastValueFrom(this.http.get<IItem[]>(this.getItemsURL + id.toString()));
+    return await lastValueFrom(
+      this.http.get<IItem[]>(this.getItemsURL + id.toString(), { withCredentials: true })
+    );
   }
   async updateWishlist(id: number, wishlist: Partial<IList>) {
     return await lastValueFrom(
@@ -38,35 +47,51 @@ export class APIService {
     );
   }
   async deleteWishlist(id: number) {
-    return await lastValueFrom(this.http.delete(this.wishlistsURL + id.toString()));
+    return await lastValueFrom(
+      this.http.delete(this.wishlistsURL + id.toString(), { withCredentials: true })
+    );
   }
 
   //Item CRUD
   async createItem(wishListID: number, url: string) {
     return await lastValueFrom(
-      this.http.post<IItem>(this.itemsURL, {
-        wishListID,
-        url,
-      })
+      this.http.post<IItem>(
+        this.itemsURL,
+        {
+          wishListID,
+          url,
+        },
+        { withCredentials: true }
+      )
     );
   }
   async getItem(id: number) {
-    return await lastValueFrom(this.http.get<IItem>(this.itemsURL + id));
+    return await lastValueFrom(
+      this.http.get<IItem>(this.itemsURL + id, { withCredentials: true })
+    );
   }
 
   async updateItem(id: number, item: Partial<IItem>) {
-    return await lastValueFrom(this.http.patch(this.itemsURL + id, item));
+    return await lastValueFrom(
+      this.http.patch(this.itemsURL + id, item, { withCredentials: true })
+    );
   }
   async deleteItem(id: number) {
-    return await lastValueFrom(this.http.delete(this.itemsURL + id.toString()));
+    return await lastValueFrom(
+      this.http.delete(this.itemsURL + id.toString(), { withCredentials: true })
+    );
   }
 
   // Import / Export
   async getExportCode(id: number) {
-    return await lastValueFrom(this.http.get<string>(this.exportURL + id.toString()));
+    return await lastValueFrom(
+      this.http.get<string>(this.exportURL + id.toString(), { withCredentials: true })
+    );
   }
 
   async importFromCode(code: string) {
-    return await lastValueFrom(this.http.post<string>(this.importURL, { code }));
+    return await lastValueFrom(
+      this.http.post<string>(this.importURL, { code }, { withCredentials: true })
+    );
   }
 }

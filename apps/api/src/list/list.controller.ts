@@ -13,10 +13,7 @@ import {
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { ListService } from './list.service';
-import { Request } from 'express';
-import { Public } from '../auth/public.decorator';
-import { User } from '../users/entities/user.entity';
-import { IGetUserAuthInfoRequest, IList } from '@wishlist-app/api-interfaces';
+import { IGetUserAuthInfoRequest } from '@wishlist-app/api-interfaces';
 import { AssignedListDto } from './dto/assigned-list.dto';
 
 @Controller('wishlists')
@@ -47,7 +44,7 @@ export class ListController {
     return this.listService.importFromCode(code.code, request.user.userId);
   }
 
-  @Get()
+  @Get('all')
   async findAll(@Req() request: IGetUserAuthInfoRequest): Promise<any[]> {
     console.log(request.user);
     return this.listService.findAll();
