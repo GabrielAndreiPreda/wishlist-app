@@ -18,6 +18,7 @@ Probabi-List-ic Purchases facilitates the organisation of the best past-time —
 ## Technologies
 The app is a single-page application that uses Angular for the front-end, NestJS for the back-end, and MySQL for the local database server
 
+
 ## Setup
 
 To clone and run this application, you'll need Git and Node.js installed on your computer (or just download it from the repo). From the command line:
@@ -48,6 +49,8 @@ A starter database export can be found in the ```Optional Setup``` folder. Alter
 
 ## Features
 - Multiple users
+- Hashed passwords & secure login
+- Backend routes guarded with JWT (stored in cookies)
 - Backup/share wishlist data
 - Dark mode
 - Semi-responsive layout
