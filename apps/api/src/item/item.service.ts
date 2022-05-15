@@ -30,7 +30,6 @@ export class ItemService {
     try {
       dom = await jsdom.JSDOM.fromURL(createItemDto.url);
     } catch (e) {
-      console.log(e);
       throw new HttpException({ error: 'Retrieval error' }, HttpStatus.NOT_FOUND);
     }
 
@@ -46,7 +45,6 @@ export class ItemService {
     newItem.wishListID = createItemDto.wishListID;
     newItem.url = createItemDto.url;
     newItem.host = url.hostname.split('.')[1];
-    console.log(newItem.host);
     await this.saveURLImageAsB64(metaTags, newItem);
     return this.itemRepository.save(newItem);
   }

@@ -38,8 +38,7 @@ export class LoginComponent implements OnInit {
       this.registerForm.getRawValue();
     try {
       await this.authService.register(authInfo.username, authInfo.password);
-      this.registerHint = 'Registration successful';
-      this.registerError = '';
+      this.router.navigate(['home']);
     } catch (error) {
       if (error instanceof HttpErrorResponse) {
         this.registerError = error.error.message;

@@ -9,22 +9,19 @@ import { AuthUserDto } from './dto/auth-user.dto';
 
 @Injectable()
 export class UsersService {
-  private saltOrRounds = 10;
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>
   ) {}
-  async register(createUserDto: CreateUserDto) {
-    createUserDto.password = await bcrypt.hash(createUserDto.password, this.saltOrRounds);
-    const { password, ...user } = await this.usersRepository.save(createUserDto);
-    return user;
-  }
 
-  findAll() {
+  async create(createUserDto: CreateUserDto) {
+    return await this.usersRepository.save(createUserDto);
+  }
+  async findAll() {
     return this.usersRepository.find();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.usersRepository.findOne(id);
   }
   async findByUsername(username: string) {
@@ -33,11 +30,11 @@ export class UsersService {
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto) {
     return this.usersRepository.update(id, updateUserDto);
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return this.usersRepository.delete(id);
   }
 }

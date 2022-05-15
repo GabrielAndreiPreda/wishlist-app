@@ -19,7 +19,6 @@ export class ItemComponent {
         quantity: this.item.quantity,
       })
       .catch((error) => {
-        //console.log(error);
         this.item.quantity--;
       });
   }
@@ -30,7 +29,6 @@ export class ItemComponent {
         quantity: this.item.quantity,
       })
       .catch((error) => {
-        //console.log(error);
         this.item.quantity++;
       });
   }

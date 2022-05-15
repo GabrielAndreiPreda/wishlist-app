@@ -6,13 +6,15 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  registerURL = 'http://localhost:3333/api/users/register';
+  registerURL = 'http://localhost:3333/api/auth/register';
   loginURL = 'http://localhost:3333/api/auth/login';
 
   constructor(private http: HttpClient) {}
 
   async register(username: string, password: string) {
-    return lastValueFrom(this.http.post(this.registerURL, { username, password }));
+    return lastValueFrom(
+      this.http.post(this.registerURL, { username, password }, { withCredentials: true })
+    );
   }
   async login(username: string, password: string) {
     return lastValueFrom(

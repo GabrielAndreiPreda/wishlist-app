@@ -9,12 +9,6 @@ import { Public } from '../auth/public.decorator';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Public()
-  @Post('register')
-  async register(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.register(createUserDto);
-  }
-
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);

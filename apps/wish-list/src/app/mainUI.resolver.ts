@@ -14,11 +14,7 @@ import { APIService } from './api.service';
 })
 export class MainUIResolver implements Resolve<Promise<IList[]>> {
   constructor(private apiService: APIService) {}
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Promise<IList[]> {
-    console.log('bananas');
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<IList[]> {
     return this.loadWishlists();
   }
 

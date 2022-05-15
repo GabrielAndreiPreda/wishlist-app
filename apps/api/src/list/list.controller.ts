@@ -26,13 +26,11 @@ export class ListController {
     @Body() createListDto: CreateListDto,
     @Req() request: IGetUserAuthInfoRequest
   ) {
-    console.log(request.user);
     const newList: AssignedListDto = {
       name: createListDto.name,
       description: createListDto.description,
       userId: request.user.userId,
     };
-    console.log(newList);
 
     return this.listService.create(newList);
   }
@@ -46,7 +44,6 @@ export class ListController {
 
   @Get('all')
   async findAll(@Req() request: IGetUserAuthInfoRequest): Promise<any[]> {
-    console.log(request.user);
     return this.listService.findAll();
   }
   @Get()
